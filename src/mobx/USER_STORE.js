@@ -20,6 +20,11 @@ class UserData {
     //clubId to be used only if user type is club
     clubId: '',
 
+    CR: {
+      isCR: false,
+      isCommon: false,
+    },
+
     //for notifications
     appLoaded: false,
   };
@@ -38,6 +43,7 @@ class UserData {
     this.state.clubId = '';
     this.state.refreshToken = '';
     this.state.appLoaded = false;
+    this.state.CR = { isCR:false, isCommon:false }; 
   };
 
   setUserRollNumber = rNo => {
@@ -54,6 +60,22 @@ class UserData {
 
   get getRefreshToken() {
     return this.state.refreshToken;
+  }
+
+  setisCR = (val) => {
+    this.state.CR = val;
+  };
+
+  get getisCR() {
+    return this.state.CR;
+  }
+
+  setIsCommon = (val) => {
+    this.state.CR.isCommon = val;
+  };
+
+  get getIsCommon() {
+    return this.state.CR.isCommon;
   }
 
   setClubId = val => {
@@ -159,6 +181,12 @@ class UserData {
 
       setLynxgpt: action,
       getLynxgpt: computed,
+
+      setisCR: action,
+      getisCR: computed,
+
+      setIsCommon: action,
+      getIsCommon: computed,
     });
   }
 }

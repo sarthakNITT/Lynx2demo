@@ -1,4 +1,4 @@
-// import LottieView from "lottie-react-native";
+import LottieView from "lottie-react-native";
 import { observer } from "mobx-react";
 import React, { useEffect, useState } from "react";
 import {
@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import EncryptedStorage from "react-native-encrypted-storage";
-// import { IconButton, TextInput } from "react-native-paper";
+import { IconButton, TextInput } from "react-native-paper";
 import {
   moderateScale,
   scale,
@@ -17,7 +17,7 @@ import {
   verticalScale,
 } from "react-native-size-matters";
 import { getStatusBarHeight } from "react-native-status-bar-height";
-// import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import CustomAlert from "../../components/customAlert";
 import ErrorScreen from "../../components/ErrorScreen";
 import LoaderPage from "../../components/LoadingScreen";
@@ -39,7 +39,7 @@ import { studentLogin } from "./studentLogin";
 
 // backend
 // Connecting with backend
-// import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import axios from "axios";
 
 import { API_STORE } from "../../mobx/API_STORE";
@@ -66,14 +66,14 @@ const LoginScreen = observer(({ navigation }) => {
     console.log("API_CALL invoked");
 
     // Check network connectivity
-    // const netInfo = await NetInfo.fetch();
-    // console.log("Network Info:", netInfo);
+    const netInfo = await NetInfo.fetch();
+    console.log("Network Info:", netInfo);
 
-    // if (!netInfo.isConnected) {
-    //   console.log("Not connected to the internet");
-    //   setAPI(3);
-    //   return;
-    // }
+    if (!netInfo.isConnected) {
+      console.log("Not connected to the internet");
+      setAPI(3);
+      return;
+    }
 
     try {
       console.log("Connected to the internet");
@@ -138,7 +138,8 @@ const LoginScreen = observer(({ navigation }) => {
   const [eyeIcon, setEyeIcon] = useState("eye-off");
   const [passwordToggle, setPasswordToggle] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const onLogin = () => {
+  const onLogin = (user) => {
+    console.log(1);
     LOGIN_STORE.setErrorText("");
 
     //checking if user is purely numbers
@@ -224,12 +225,12 @@ const LoginScreen = observer(({ navigation }) => {
                   <ScrollView keyboardShouldPersistTaps="always">
                     <View style={styles.headerTextContainer}>
                       <Text style={styles.loginText}>Login</Text>
-                      {/* <IconButton
+                      <IconButton
                         icon={"information-outline"}
                         onPress={() => {
                           setModalVisible(true);
                         }}
-                      /> */}
+                      />
                     </View>
 
                     <CustomAlert
@@ -260,7 +261,7 @@ const LoginScreen = observer(({ navigation }) => {
 
                     <View style={{ marginBottom: verticalScale(55) }}>
                       <View style={styles.textInput}>
-                        {/* <TextInput
+                        <TextInput
                           label="Username"
                           placeholder="Enter your username"
                           mode="outlined"
@@ -276,10 +277,10 @@ const LoginScreen = observer(({ navigation }) => {
                           onChangeText={(user) => {
                             setUser(user);
                           }}
-                        /> */}
+                        />
                       </View>
                       <View style={styles.textInput}>
-                        {/* <TextInput
+                        <TextInput
                           autoCorrect={false}
                           label="Password"
                           placeholder="Enter your password"
@@ -307,7 +308,7 @@ const LoginScreen = observer(({ navigation }) => {
                           // }
                           value={password}
                           onChangeText={(password) => setPassword(password)}
-                        /> */}
+                        />
                         <TouchableOpacity
                           onPress={() => {
                             navigation.push("Register");
@@ -386,17 +387,17 @@ const LoginScreen = observer(({ navigation }) => {
                             onLogin(user);
                           }}
                         >
-                          {/* <Icon
+                          <Icon
                             name="chevron-right"
                             size={verticalScale(44)}
                             color={colors.WHITE}
-                          /> */}
+                          />
                         </TouchableOpacity>
                       </View>
                     </View>
                   </ScrollView>
                 </View>
-                {/* {Platform.OS === "android" ? (
+                {Platform.OS === "android" ? (
                   <LottieView
                     style={{
                       //height and width added to view animation
@@ -424,7 +425,7 @@ const LoginScreen = observer(({ navigation }) => {
                     autoPlay
                     loop
                   />
-                )} */}
+                )}
               </View>
             </>
           )}

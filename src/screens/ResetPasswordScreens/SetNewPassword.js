@@ -1,8 +1,7 @@
-// import NetInfo from '@react-native-community/netinfo';
-import axios from 'axios';
+import NetInfo from '@react-native-community/netinfo';
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-// import {TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {
   moderateScale,
   scale,
@@ -10,7 +9,7 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import {useToast} from 'react-native-toast-notifications';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Text from '../../components/TextComponent';
 import {API_STORE} from '../../mobx/API_STORE';
 import {RESET_STORE} from '../../mobx/RESET_PASSWORD_STORE';
@@ -37,6 +36,7 @@ const SetNewPassword = ({navigation}) => {
   const toast = useToast();
 
   const changePassword = () => {
+    console.log("1");
     if (newPassword.trim().length < PASSWORD_LENGTH) {
       toast.show(PASSWORD_SHORT, {type: 'warning'});
       return;
@@ -46,58 +46,58 @@ const SetNewPassword = ({navigation}) => {
       return;
     }
     RESET_STORE.setLoading(true);
-    // NetInfo.fetch().then(state => {
-    //   if (state.isConnected == true) {
-    //     //If it is a student account
-    //     let token = null;
-    //     token = RESET_STORE.getClubsToken;
+    NetInfo.fetch().then(state => {
+      if (state.isConnected === true) {
+        console.log("2");
+        // Get the token (assuming it's stored in RESET_STORE)
+        const token = RESET_STORE.getClubsToken;
 
-    //     const axiosHeaders = {
-    //       headers: {
-    //         token: token,
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
+        const body = JSON.stringify({
+          new_password: newPassword.trim(),
+          new_cpassword: newConfirmPassword.trim(),
+        });
+        let url = null;
+        if (RESET_STORE.getIsStudent) {
+          url = API_STORE.getBaseUrl + API_RESET_PASSWORD_STUDENT;
+        } else {
+          url = API_STORE.getBaseUrl + API_RESET_PASSWORD_CLUBS;
+        }
 
-    //     const body = JSON.stringify({
-    //       new_password: newPassword.trim(),
-    //       new_cpassword: newConfirmPassword.trim(),
-    //     });
-    //     let url = null;
-    //     if (RESET_STORE.getIsStudent) {
-    //       url = API_STORE.getBaseUrl + API_RESET_PASSWORD_STUDENT;
-    //     } else {
-    //       url = API_STORE.getBaseUrl + API_RESET_PASSWORD_CLUBS;
-    //     }
-    //     axios
-    //       .post(url, body, axiosHeaders)
-    //       .then(response => {
-    //         if (response.status === 200) {
-    //           RESET_STORE.setSuccess(true);
-    //           RESET_STORE.setLoading(false);
-    //         }
-    //       })
-    //       .catch(error => {
-    //         if (error.response) {
-    //           RESET_STORE.setErrorText(error.response.data.message);
-    //         } else if (error.request) {
-    //           // The request was made but no response was received
-    //           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    //           // http.ClientRequest in node.js
-    //           RESET_STORE.setErrorText(SERVER_ERROR);
-    //         } else {
-    //           // Something happened in setting up the request that triggered an Error
-    //           RESET_STORE.setErrorText(UNEXPECTED_ERROR);
-    //         }
-    //         RESET_STORE.setError(true);
-    //         RESET_STORE.setLoading(false);
-    //       });
-    //   } else {
-    //     RESET_STORE.setErrorText(NO_NETWORK);
-    //     RESET_STORE.setError(true);
-    //     RESET_STORE.setLoading(false);
-    //   }
-    // });
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            token: token,
+            'Content-Type': 'application/json',
+          },
+          body: body,
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json().then(data => {
+                console.log(data);
+                RESET_STORE.setSuccess(true);
+                RESET_STORE.setLoading(false);
+              });
+            } else {
+              return response.json().then(data => {
+                RESET_STORE.setErrorText(data.message || SERVER_ERROR);
+                RESET_STORE.setError(true);
+                RESET_STORE.setLoading(false);
+              });
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            RESET_STORE.setErrorText(SERVER_ERROR);
+            RESET_STORE.setError(true);
+            RESET_STORE.setLoading(false);
+          });
+      } else {
+        RESET_STORE.setErrorText(NO_NETWORK);
+        RESET_STORE.setError(true);
+        RESET_STORE.setLoading(false);
+      }
+    });
   };
 
   return (
@@ -114,7 +114,7 @@ const SetNewPassword = ({navigation}) => {
           Enter your new password
         </Text>
 
-        {/* <TextInput
+        <TextInput
           autoCapitalize="none"
           label="Password"
           placeholder="Enter your new password"
@@ -129,6 +129,7 @@ const SetNewPassword = ({navigation}) => {
             },
           }}
           secureTextEntry={passwordToggle}
+          // Uncomment and adjust the below code if you want to toggle the eye icon:
           // right={
           //   <TextInput.Icon
           //     name={eyeIcon}
@@ -142,8 +143,8 @@ const SetNewPassword = ({navigation}) => {
           onChangeText={pass => {
             setNewPass(pass);
           }}
-        /> */}
-        {/* <TextInput
+        />
+        <TextInput
           label="Confirm Password"
           placeholder="Confirm your password"
           mode="outlined"
@@ -162,7 +163,7 @@ const SetNewPassword = ({navigation}) => {
           onChangeText={pass => {
             setNewConfirmPass(pass);
           }}
-        /> */}
+        />
 
         <View style={styles.loginBtnView}>
           <TouchableOpacity
@@ -171,14 +172,13 @@ const SetNewPassword = ({navigation}) => {
               borderRadius: verticalScale(22),
             }}
             onPress={() => {
-              // forwardAction();
               changePassword();
             }}>
-            {/* <Icon
+            <Icon
               name="chevron-right"
               size={verticalScale(44)}
               color={colors.WHITE}
-            /> */}
+            />
           </TouchableOpacity>
         </View>
       </View>

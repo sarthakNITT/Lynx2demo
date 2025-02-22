@@ -1,14 +1,15 @@
-// import NetInfo from '@react-native-community/netinfo';
+import { API_STORE } from '../../mobx/API_STORE';
+import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {observer} from 'mobx-react';
 import React, {useState, useRef} from 'react';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
-// import {
-//   ActivityIndicator,
-//   Button,
-//   HelperText,
-//   TextInput,
-// } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  HelperText,
+  TextInput,
+} from 'react-native-paper';
 import {
   moderateScale,
   scale,
@@ -16,7 +17,7 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import {useToast} from 'react-native-toast-notifications';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ErrorScreen from '../../components/ErrorScreen';
 import Text from '../../components/TextComponent';
 import {RESET_STORE} from '../../mobx/RESET_PASSWORD_STORE';
@@ -30,7 +31,7 @@ import {NO_NETWORK} from '../../utils/ERROR_MESSAGES';
 import {FormatSeconds} from '../../utils/helperFunction/formatSeconds';
 import Timer from './Timer';
 import {sendClubOTP, sendStudentOTP} from './sendOTPApi';
-// import Recaptcha from 'react-native-recaptcha-that-works';
+import Recaptcha from 'react-native-recaptcha-that-works';
 
 const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
   const [OTP, setOTP] = useState(0);
@@ -83,49 +84,54 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
     const VALIDATE_URL = RESET_STORE.getIsStudent
       ? API_RESET_PASSWORD_VALIDATE_OTP_STUDENTS
       : API_RESET_PASSWORD_VALIDATE_OTP_CLUBS;
+    // if (OTP === 0) {
+    //   setLoading(false);
+    //   toast.show('Enter OTP', {type: 'danger'});
+    // }
     if (OTP === 0) {
       setLoading(false);
       toast.show('Enter OTP', {type: 'danger'});
-    }
-    // NetInfo.fetch().then(state => {
-    //   if (state.isConnected == true) {
-    //     setInternet(true);
+      return; // add this return statement
+    }    
+    NetInfo.fetch().then(state => {
+      if (state.isConnected == true) {
+        setInternet(true);
 
-    //     const userEmail = RESET_STORE.getUsername.trim();
+        const userEmail = RESET_STORE.getUsername.trim();
 
-    //     const axiosHeaders = {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
-    //     const body = JSON.stringify({
-    //       otp: OTP,
-    //       email: userEmail,
-    //       rollNo: userEmail,
-    //     });
+        const axiosHeaders = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const body = JSON.stringify({
+          otp: OTP,
+          email: userEmail,
+          rollNo: userEmail,
+        });
 
-    //     axios
-    //       .post(API_STORE.getBaseUrl + VALIDATE_URL, body, axiosHeaders)
-    //       .then(response => {
-    //         setLoading(false);
-    //         if (response.status === 200) {
-    //           RESET_STORE.setClubsToken(response.data.token);
-    //           forwardAction();
-    //         }
-    //       })
-    //       .catch(error => {
-    //         setLoading(false);
-    //         console.log(error);
-    //         toast.show(error.response.data.message, {type: 'danger'});
-    //         setErrorOTP(true);
-    //       });
-    //   } else {
-    //     // RESET_STORE.setErrorText(NO_NETWORK);
-    //     // RESET_STORE.setError(true);
-    //     setLoading(false);
-    //     setInternet(false);
-    //   }
-    // });
+        axios
+          .post(API_STORE.getBaseUrl + VALIDATE_URL, body, axiosHeaders)
+          .then(response => {
+            setLoading(false);
+            if (response.status === 200) {
+              RESET_STORE.setClubsToken(response.data.token);
+              forwardAction();
+            }
+          })
+          .catch(error => {
+            setLoading(false);
+            console.log(error);
+            toast.show(error.response.data.message, {type: 'danger'});
+            setErrorOTP(true);
+          });
+      } else {
+        RESET_STORE.setErrorText(NO_NETWORK);
+        RESET_STORE.setError(true);
+        setLoading(false);
+        setInternet(false);
+      }
+    });
   };
 
   const hasErrors = () => {
@@ -134,7 +140,7 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
 
   return (
     <>
-      {/* <Recaptcha
+      <Recaptcha
         ref={recaptcha}
         siteKey={RECAPTCHA_SITE_KEY}
         baseUrl="http://nittapp.spider-nitt.org"
@@ -144,7 +150,7 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
           <ActivityIndicator size={'large'} color={colors.Tertiary} />
         }
         size="normal"
-      /> */}
+      />
       {!Internet ? (
         <>
           <View
@@ -156,13 +162,13 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
               showIconInButton={false}
               errorMessage={NO_NETWORK}
               fn={() => {
-                // NetInfo.fetch().then(state => {
-                //   if (state.isConnected == true) {
-                //     // RESET_STORE.setErrorText('');
-                //     // RESET_STORE.setError(false);
-                //     setInternet(true);
-                //   }
-                // });
+                NetInfo.fetch().then(state => {
+                  if (state.isConnected == true) {
+                    RESET_STORE.setErrorText('');
+                    RESET_STORE.setError(false);
+                    setInternet(true);
+                  }
+                });
               }}
             />
           </View>
@@ -180,7 +186,7 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
             <Text style={{...styles.title, fontSize: scale(14)}}>
               Enter your verification code
             </Text>
-            {/* <TextInput
+            <TextInput
               label="OTP"
               placeholder="Enter your OTP"
               keyboardType="number-pad"
@@ -195,12 +201,12 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
               onChangeText={otp => {
                 setOTP(parseInt(otp));
               }}
-            /> */}
-            {/* <HelperText type="error" visible={hasErrors()}>
+            />
+            <HelperText type="error" visible={hasErrors()}>
               Invalid OTP
-            </HelperText> */}
+            </HelperText>
             <View style={styles.loginBtnView}>
-              {/* <Button
+              <Button
                 icon={'chevron-left'}
                 color={colors.Accent}
                 disabled={RESET_STORE.getSecondsRemaining !== 0}
@@ -208,10 +214,10 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
                   backwardAction();
                 }}>
                 Back
-              </Button> */}
+              </Button>
               {Loading ? (
                 <>
-                  {/* <ActivityIndicator size={'large'} color={colors.Tertiary} /> */}
+                  <ActivityIndicator size={'large'} color={colors.Tertiary} />
                 </>
               ) : (
                 <TouchableOpacity
@@ -222,11 +228,11 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
                   onPress={() => {
                     validateOtp();
                   }}>
-                  {/* <Icon
+                  <Icon
                     name="chevron-right"
                     size={verticalScale(44)}
                     color={colors.WHITE}
-                  /> */}
+                  />
                 </TouchableOpacity>
               )}
             </View>
@@ -258,7 +264,7 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
               ) : null}
             </View>
             <View style={styles.otpButton}>
-              {/* <Button
+              <Button
                 mode="contained"
                 loading={RESET_STORE.getSecondsRemaining !== 0}
                 disabled={RESET_STORE.getSecondsRemaining !== 0}
@@ -266,7 +272,7 @@ const ClubEnterOTP = observer(({forwardAction, backwardAction}) => {
                   send();
                 }}>
                 <Text style={styles.otpText}>Resend OTP</Text>
-              </Button> */}
+              </Button>
             </View>
           </View>
         </>

@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 // import DocumentPicker from 'react-native-document-picker';
-// import { Avatar } from 'react-native-paper';
+import { Avatar } from 'react-native-paper';
 import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import { useToast } from 'react-native-toast-notifications';
 import Text from '../../components/TextComponent';
@@ -101,12 +101,12 @@ const ProfilePic = observer(({ forwardAction, backwardAction }) => {
                 activeOpacity={0.8}
                 style={styles.edit}
                 onPress={selectFile}>
-                {/* <Avatar.Icon
+                <Avatar.Icon
                   icon="lead-pencil"
                   size={35}
                   color="white"
                   style={{ backgroundColor: colors.Accent, elevation: 5 }}
-                /> */}
+                />
               </TouchableOpacity>
             </View>
             <View style={styles.optional}>
@@ -152,7 +152,7 @@ const ProfilePic = observer(({ forwardAction, backwardAction }) => {
               activeOpacity={0.8}
               style={styles.edit}
               onPress={selectFile}>
-              {/* <Avatar.Icon
+              <Avatar.Icon
                 icon="lead-pencil"
                 size={35}
                 color="white"
@@ -160,7 +160,7 @@ const ProfilePic = observer(({ forwardAction, backwardAction }) => {
                   backgroundColor: colors.Accent,
                   elevation: 5,
                 }}
-              /> */}
+              />
             </TouchableOpacity>
           </View>
           <Text

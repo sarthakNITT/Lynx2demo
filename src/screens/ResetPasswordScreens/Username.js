@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-// import {ActivityIndicator, HelperText, TextInput} from 'react-native-paper';
+import {ActivityIndicator, HelperText, TextInput} from 'react-native-paper';
 import {
   moderateScale,
   scale,
@@ -8,12 +8,12 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import {useToast} from 'react-native-toast-notifications';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Text from '../../components/TextComponent';
 import {RESET_STORE} from '../../mobx/RESET_PASSWORD_STORE';
 import {RECAPTCHA_SITE_KEY} from '../../utils/API_CONSTANTS';
 import * as colors from '../../utils/colors';
-// import Recaptcha from 'react-native-recaptcha-that-works';
+import Recaptcha from 'react-native-recaptcha-that-works';
 import {containOnlyNumbers} from '../../utils/helperFunction/FormValidation';
 import {sendClubOTP, sendStudentOTP} from './sendOTPApi';
 
@@ -58,7 +58,7 @@ const Username = ({forward, navigation}) => {
         return;
       }
     }
-    // recaptcha.current.open();
+    recaptcha.current.open();
   };
 
   const onVerify = token => {
@@ -148,7 +148,7 @@ const Username = ({forward, navigation}) => {
         flex: 1,
         paddingTop: verticalScale(25),
       }}>
-      {/* <Recaptcha
+      <Recaptcha
         ref={recaptcha}
         siteKey={RECAPTCHA_SITE_KEY}
         baseUrl="http://nittapp.spider-nitt.org"
@@ -158,12 +158,12 @@ const Username = ({forward, navigation}) => {
           <ActivityIndicator size={'large'} color={colors.Tertiary} />
         }
         size="normal"
-      /> */}
+      />
       <Text style={styles.title}>Reset Password</Text>
       <Text style={{...styles.title, fontSize: scale(14)}}>
         Enter your username
       </Text>
-      {/* <TextInput
+      <TextInput
         label="Username"
         placeholder="Enter your username"
         mode="outlined"
@@ -178,10 +178,10 @@ const Username = ({forward, navigation}) => {
         onChangeText={user => {
           RESET_STORE.setUsername(user);
         }}
-      /> */}
-      {/* <HelperText type="error" visible={hasErrors()}>
+      />
+      <HelperText type="error" visible={hasErrors()}>
         {error}
-      </HelperText> */}
+      </HelperText>
       <TouchableOpacity
         onPress={() => {
           navigation.pop();
@@ -208,7 +208,7 @@ const Username = ({forward, navigation}) => {
       <View style={styles.loginBtnView}>
         {Loading ? (
           <>
-            {/* <ActivityIndicator size={'large'} color={colors.Tertiary} /> */}
+            <ActivityIndicator size={'large'} color={colors.Tertiary} />
           </>
         ) : (
           <TouchableOpacity
@@ -219,11 +219,11 @@ const Username = ({forward, navigation}) => {
             onPress={() => {
               send();
             }}>
-            {/* <Icon
+            <Icon
               name="chevron-right"
               size={verticalScale(44)}
               color={colors.WHITE}
-            /> */}
+            />
           </TouchableOpacity>
         )}
       </View>

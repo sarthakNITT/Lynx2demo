@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {scale, verticalScale} from 'react-native-size-matters';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {PreventDoubleClickWithOpacity as TouchableOpacity} from '../../components/TouchableOpacity';
 import successLottie from '../../res/lottieFiles/success.json';
 import * as colors from '../../utils/colors';
@@ -88,7 +88,7 @@ const SuccessScreen = ({
                 borderRadius: scale(24),
                 alignItems: 'center',
               }}>
-              {/* {showLeftIconInButton ? (
+              {showLeftIconInButton ? (
                 <Icon
                   name={iconLeft}
                   color={colors.Primary}
@@ -97,7 +97,7 @@ const SuccessScreen = ({
                 />
               ) : (
                 <View style={{width: scale(8)}} />
-              )} */}
+              )}
               <Text
                 style={{
                   fontSize: scale(16),
@@ -106,7 +106,7 @@ const SuccessScreen = ({
                 }}>
                 {buttonText}
               </Text>
-              {/* {showRightIconInButton ? (
+              {showRightIconInButton ? (
                 <Icon
                   name={iconRight}
                   color={colors.Primary}
@@ -115,7 +115,7 @@ const SuccessScreen = ({
                 />
               ) : (
                 <View style={{width: scale(8)}} />
-              )} */}
+              )}
             </View>
           </TouchableOpacity>
         </Animatable.View>

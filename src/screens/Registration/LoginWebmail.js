@@ -1,4 +1,4 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 
 import axios from 'axios';
 import {observer} from 'mobx-react';
@@ -10,7 +10,7 @@ import {
   View,
   Linking,
 } from 'react-native';
-// import {ActivityIndicator, TextInput} from 'react-native-paper';
+import {ActivityIndicator, TextInput} from 'react-native-paper';
 import {
   moderateScale,
   scale,
@@ -19,7 +19,7 @@ import {
 } from 'react-native-size-matters';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useToast} from 'react-native-toast-notifications';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomAlert from '../../components/customAlert';
 import Text from '../../components/TextComponent';
 import {PreventDoubleClickWithOpacity as TouchableOpacity} from '../../components/TouchableOpacity';
@@ -95,12 +95,12 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
 
     try {
       setLoading(true);
-      // const netInfo = await NetInfo.fetch();
+      const netInfo = await NetInfo.fetch();
 
-      // if (!netInfo.isConnected) {
-      //   toast.show(NO_NETWORK, {type: 'warning'});
-      //   return;
-      // }
+      if (!netInfo.isConnected) {
+        toast.show(NO_NETWORK, {type: 'warning'});
+        return;
+      }
 
       const reg_token = USER_STORE.getFirebaseToken;
       console.log('reg: ', reg_token);
@@ -162,9 +162,9 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
         baseUrl="http://nittapp.spider-nitt.org"
         onVerify={onVerify}
         onExpire={onExpire}
-        // loadingComponent={
-        //   <ActivityIndicator size={'large'} color={colors.Tertiary} />
-        // }
+        loadingComponent={
+          <ActivityIndicator size={'large'} color={colors.Tertiary} />
+        }
         size="normal"
         //style={{ backgroundColor: 'white' }}
       />
@@ -201,7 +201,7 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
 
               <View style={{marginBottom: verticalScale(55)}}>
                 <View style={styles.textInput}>
-                  {/* <TextInput
+                  <TextInput
                     label="Roll Number"
                     placeholder="Enter your Roll Number"
                     mode="outlined"
@@ -219,7 +219,7 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
                     onChangeText={user => {
                       setUser(user);
                     }}
-                  /> */}
+                  />
                 </View>
                 <View style={styles.textInput}>
                   <TouchableOpacity
@@ -249,10 +249,10 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
                 {Loading ? (
                   <>
                     <View style={styles.loginBtnView}>
-                      {/* <ActivityIndicator
+                      <ActivityIndicator
                         size={'large'}
                         color={colors.Tertiary}
-                      /> */}
+                      />
                     </View>
                   </>
                 ) : (
@@ -267,11 +267,11 @@ const LoginWebmailScreen = observer(({navigation, forwardAction}) => {
                         //setNotFount(true);
                         send();
                       }}>
-                      {/* <Icon
+                      <Icon
                         name="chevron-right"
                         size={verticalScale(44)}
                         color={colors.WHITE}
-                      /> */}
+                      />
                     </TouchableOpacity>
                   </View>
                 )}

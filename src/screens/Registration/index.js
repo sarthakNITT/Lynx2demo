@@ -2,12 +2,10 @@ import {observer} from 'mobx-react';
 import React, {useRef, useState, useEffect} from 'react';
 import {BackHandler} from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
-
+import {STUDENT_REGISTRATION_STORE} from '../../mobx/STUDENT_REGISTRATION_STORE'
 import ErrorScreen from '../../components/ErrorScreen';
 import LoaderPage from '../../components/LoadingScreen';
 import SuccessScreen from '../../components/SuccessScreen';
-import {DEPARTMENT_STORE} from '../../mobx/DEPARTMENT_STORE';
-import {STUDENT_REGISTRATION_STORE} from '../../mobx/STUDENT_REGISTRATION_STORE';
 import {USER_STORE} from '../../mobx/USER_STORE';
 import {NO_NETWORK} from '../../utils/ERROR_MESSAGES';
 import {ACCENT_LOTTIE, EXTERNAL_LOTTIE} from '../../utils/LOADING_TYPES';
@@ -21,13 +19,14 @@ import OTPScreen from './OTP';
 import ProfilePic from './ProfilePic';
  import ResetPassword from './ResetPassword';
 import {studentRegisterAPI} from './studentRegisterAPI';
-// import PagerView from 'react-native-pager-view';
+import PagerView from 'react-native-pager-view';
 import { reg_token } from '../../utils/API_CONSTANTS';
+import { DEPARTMENT_STORE } from '../../mobx/DEPARTMENT_STORE';
 
 const Registration = observer(({navigation}) => {
   const [Page, setPage] = useState(0);
 
-  // const ref = useRef(PagerView);
+  const ref = useRef(PagerView);
   const buttonForwardAction = () => {
     ref.current.setPage(Page + 1);
   };
@@ -67,6 +66,7 @@ const Registration = observer(({navigation}) => {
       });
 
     formData.append('reg_token', "1");
+    formData.append('reg_token', USER_STORE.getFirebaseToken);
     formData.append(
       'countryCode',
       '+' + STUDENT_REGISTRATION_STORE.getCountryCode,
@@ -82,7 +82,7 @@ const Registration = observer(({navigation}) => {
     );
     formData.append(
       'department_id',
-      STUDENT_REGISTRATION_STORE.getDepartmentId
+      STUDENT_REGISTRATION_STORE.getDepartmentId.trim(),
     );
     formData[reg_token]="abc";
     studentRegisterAPI(formData);
@@ -100,7 +100,7 @@ const Registration = observer(({navigation}) => {
 
   return (
     <>
-      {STUDENT_REGISTRATION_STORE.getApiCall ||
+      {STUDENT_REGISTRATION_STORE.getApiCall === true ||
       DEPARTMENT_STORE.getLoading === true ? (
         <LoaderPage
           LoadingAccent={ACCENT_LOTTIE}
@@ -175,7 +175,7 @@ const Registration = observer(({navigation}) => {
                     />
                   ) : (
                     <>
-                      {/* <PagerView
+                      <PagerView
                         style={{flex: 1}}
                         initialPage={Page}
                         scrollEnabled={false}
@@ -209,7 +209,7 @@ const Registration = observer(({navigation}) => {
                           backwardAction={buttonBackwardAction}
                           handleAPICALL={handleAPICALL}
                         />
-                      </PagerView> */}
+                      </PagerView>
                     </>
                   )}
                 </>

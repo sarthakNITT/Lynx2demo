@@ -453,7 +453,7 @@ import {
   Platform,
 } from 'react-native';
 // import DateTimePickerModal from 'react-native-modal-datetime-picker';
-// import { TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import { ScaledSheet, verticalScale } from 'react-native-size-matters';
 import Error from '../../components/Error';
 import { STUDENT_REGISTRATION_STORE } from '../../mobx/STUDENT_REGISTRATION_STORE';
@@ -536,7 +536,7 @@ const Name = observer(({ forwardAction, backwardAction }) => {
 
         {dateEr && <Error text="Enter a valid date of birth" />}
 
-        {/* <TextInput
+        <TextInput
           label="Full Address"
           mode="outlined"
           theme={{
@@ -548,7 +548,7 @@ const Name = observer(({ forwardAction, backwardAction }) => {
           onChangeText={(text) => {
             STUDENT_REGISTRATION_STORE.setAddress(text);
           }}
-        /> */}
+        />
 
         {addEr && <Error text="Enter your full address" />}
 

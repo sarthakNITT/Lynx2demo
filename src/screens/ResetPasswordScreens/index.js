@@ -1,7 +1,7 @@
 import {observer} from 'mobx-react';
 import React, {useEffect, useRef, useState} from 'react';
 import {BackHandler, View} from 'react-native';
-// import PagerView from 'react-native-pager-view';
+import PagerView from 'react-native-pager-view';
 import {
   moderateScale,
   ScaledSheet,
@@ -18,7 +18,7 @@ import SetNewPassword from './SetNewPassword';
 import Username from './Username';
 
 const ResetPasswordScreen = observer(({navigation}) => {
-  // const ref = useRef(PagerView);
+  const ref = useRef(PagerView);
   const buttonForwardAction = () => {
     ref.current.setPage(Page + 1);
   };
@@ -40,7 +40,7 @@ const ResetPasswordScreen = observer(({navigation}) => {
 
   return (
     <>
-                {/* <PagerView
+                <PagerView
                   style={{flex: 1}}
                   initialPage={Page}
                   scrollEnabled={false}
@@ -66,7 +66,7 @@ const ResetPasswordScreen = observer(({navigation}) => {
                   <View key={3} style={{flex: 1}}>
                     <SetNewPassword navigation={navigation} />
                   </View>
-                </PagerView> */}
+                </PagerView>
     </>
   );
 });

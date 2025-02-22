@@ -2,7 +2,7 @@
 import {observer} from 'mobx-react';
 import React, {useRef, useState} from 'react';
 import {Dimensions, Keyboard, ScrollView, View, Platform} from 'react-native';
-// import {TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native';
 import {scale, ScaledSheet, verticalScale} from 'react-native-size-matters';
 import Error from '../../components/Error';
@@ -90,7 +90,7 @@ const Name = observer(({forwardAction}) => {
       <Text style={styles.subtitle}>{'Enter basic profile information'}</Text>
       <View style={{paddingHorizontal: scale(20), zIndex: 1}}>
         
-        {/* <TextInput
+        <TextInput
           label="First Name"
           mode="outlined"
           //disabled={true}
@@ -108,9 +108,9 @@ const Name = observer(({forwardAction}) => {
           }}
           returnKeyType="next"
           onSubmitEditing={() => lastNameInput.current.focus()}
-          /> */}
+          />
 
-        {/* {Platform.OS === 'ios' ? (
+        {Platform.OS === 'ios' ? (
           <TouchableOpacity
             style={{marginTop: verticalScale(5)}}
             onPress={() => {
@@ -168,7 +168,7 @@ const Name = observer(({forwardAction}) => {
               {STUDENT_REGISTRATION_STORE.getDepartment}
             </TextInput>
           </TouchableOpacity>
-        )} */}
+        )}
          {Platform.OS === 'ios' ? (
           <TouchableOpacity
             style={{marginTop: verticalScale(8), zIndex: 1}}
@@ -210,7 +210,7 @@ const Name = observer(({forwardAction}) => {
               setData(DEPARTMENTS);
               STUDENT_REGISTRATION_STORE.toggleModalVisible();
             }}>
-            {/* <TextInput
+            <TextInput
               mode="outlined"
               disabled={true}
               theme={{
@@ -222,7 +222,7 @@ const Name = observer(({forwardAction}) => {
               outlineColor={er ? colors.Tertiary : null}>
               Department:{' '}
               {STUDENT_REGISTRATION_STORE.getDepartment}
-            </TextInput> */}
+            </TextInput>
           </TouchableOpacity>
         )}
 
@@ -270,7 +270,7 @@ const Name = observer(({forwardAction}) => {
                 setData(COUNTRY_DATA);
                 STUDENT_REGISTRATION_STORE.toggleModalVisible();
               }}>
-              {/* <TextInput
+              <TextInput
                 mode="outlined"
                 disabled={true}
                 theme={{
@@ -282,11 +282,11 @@ const Name = observer(({forwardAction}) => {
                 outlineColor={er ? colors.Tertiary : null}>
                 +{''}
                 {STUDENT_REGISTRATION_STORE.getCountryCode}
-              </TextInput> */}
+              </TextInput>
             </TouchableOpacity>
           )}
 
-          {/* <TextInput
+          <TextInput
             label="Mobile Number"
             mode="outlined"
             //disabled={true}
@@ -309,7 +309,7 @@ const Name = observer(({forwardAction}) => {
             }}
             ref={mobileInput}
             returnKeyType="next"
-          /> */}
+          />
         </View>
         {Platform.OS === 'ios' ? (
           <TouchableOpacity
@@ -350,7 +350,7 @@ const Name = observer(({forwardAction}) => {
               setData(Gender);
               STUDENT_REGISTRATION_STORE.toggleModalVisible();
             }}>
-            {/* <TextInput
+            <TextInput
               mode="outlined"
               disabled={true}
               theme={{
@@ -361,7 +361,7 @@ const Name = observer(({forwardAction}) => {
               selectionColor={colors.TEXT_INPUT_SELECTION_COLOR}
               outlineColor={er ? colors.Tertiary : null}>
               {STUDENT_REGISTRATION_STORE.getGender.toUpperCase()}
-            </TextInput> */}
+            </TextInput>
           </TouchableOpacity>
         )}
 
@@ -405,7 +405,7 @@ const Name = observer(({forwardAction}) => {
               setData(COUNTRIES);
               STUDENT_REGISTRATION_STORE.toggleModalVisible();
             }}>
-            {/* <TextInput
+            <TextInput
               mode="outlined"
               disabled={true}
               theme={{
@@ -417,7 +417,7 @@ const Name = observer(({forwardAction}) => {
               outlineColor={er ? colors.Tertiary : null}>
               Country of origin:{' '}
               {STUDENT_REGISTRATION_STORE.getNationality.toUpperCase()}
-            </TextInput> */}
+            </TextInput>
           </TouchableOpacity>
         )}
 

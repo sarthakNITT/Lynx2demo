@@ -1,14 +1,14 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {observer} from 'mobx-react';
 import React, {useState, useEffect, useRef} from 'react';
 import {Dimensions, TouchableOpacity, View} from 'react-native';
-// import {
-//   ActivityIndicator,
-//   Button,
-//   HelperText,
-//   TextInput,
-// } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  HelperText,
+  TextInput,
+} from 'react-native-paper';
 import {
   moderateScale,
   scale,
@@ -16,7 +16,7 @@ import {
   verticalScale,
 } from 'react-native-size-matters';
 import {useToast} from 'react-native-toast-notifications';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ErrorScreen from '../../components/ErrorScreen';
 import Text from '../../components/TextComponent';
 import {API_STORE} from '../../mobx/API_STORE';
@@ -74,48 +74,48 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
       setLoading(false);
       toast.show('Enter OTP', {type: 'danger'});
     }
-    // NetInfo.fetch().then(state => {
-    //   if (state.isConnected == true) {
-    //     setInternet(true);
+    NetInfo.fetch().then(state => {
+      if (state.isConnected == true) {
+        setInternet(true);
 
-    //     const axiosHeaders = {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
-    //     const body = JSON.stringify({
-    //       rollNo: USER_STORE.getUserRollNumber,
-    //       otp: OTP,
-    //     });
-    //     axios
-    //       .post(API_STORE.getBaseUrl + API_VERIFY_OTP, body, axiosHeaders)
-    //       .then(response => {
-    //         setLoading(false);
-    //         console.log("ERRRRORRRR",response.data);
-    //         if (response.data.message === 'Success') {
+        const axiosHeaders = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const body = JSON.stringify({
+          rollNo: USER_STORE.getUserRollNumber,
+          otp: OTP,
+        });
+        axios
+          .post(API_STORE.getBaseUrl + API_VERIFY_OTP, body, axiosHeaders)
+          .then(response => {
+            setLoading(false);
+            console.log("ERRRRORRRR",response.data);
+            if (response.data.message === 'Success') {
               
-    //           console.log('Hello + Success to scroll');
-    //           STUDENT_REGISTRATION_STORE.setFirstName(response.data.name);
-    //           USER_STORE.setUserRegToken(response.data.token);
-    //           getDepartmentAPI(toast, setLoading);
-    //           console.log("response",response.data);
-    //           scroll();
+              console.log('Hello + Success to scroll');
+              STUDENT_REGISTRATION_STORE.setFirstName(response.data.name);
+              USER_STORE.setUserRegToken(response.data.token);
+              getDepartmentAPI(toast, setLoading);
+              console.log("response",response.data);
+              scroll();
 
-    //         }
-    //       })
-    //       .catch(error => {
-    //         setLoading(false);
-    //         console.log("er" + error);
-    //         toast.show(error.response.data.message, {type: 'danger'});
-    //         setErrorOTP(true);
-    //       });
-    //   } else {
-    //     RESET_STORE.setErrorText(NO_NETWORK);
-    //     RESET_STORE.setError(true);
-    //     setLoading(false);
-    //     setInternet(false);
-    //   }
-    // });
+            }
+          })
+          .catch(error => {
+            setLoading(false);
+            console.log("er" + error);
+            toast.show(error.response.data.message, {type: 'danger'});
+            setErrorOTP(true);
+          });
+      } else {
+        RESET_STORE.setErrorText(NO_NETWORK);
+        RESET_STORE.setError(true);
+        setLoading(false);
+        setInternet(false);
+      }
+    });
   };
   const resendOtp = async recaptchaToken => {
     setLoading(true);
@@ -130,12 +130,12 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
 
     try {
       setLoading(true);
-      // const netInfo = await NetInfo.fetch();
+      const netInfo = await NetInfo.fetch();
 
-      // if (!netInfo.isConnected) {
-      //   toast.show(NO_NETWORK, {type: 'warning'});
-      //   return;
-      // }
+      if (!netInfo.isConnected) {
+        toast.show(NO_NETWORK, {type: 'warning'});
+        return;
+      }
 
       const reg_token = USER_STORE.getFirebaseToken;
       console.log('reg: ', reg_token);
@@ -201,9 +201,9 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
         baseUrl="http://localhost:3000"
         onVerify={onVerify}
         onExpire={onExpire}
-        // loadingComponent={
-        //   <ActivityIndicator size={'large'} color={colors.Tertiary} />
-        // }
+        loadingComponent={
+          <ActivityIndicator size={'large'} color={colors.Tertiary} />
+        }
         size="normal"
       />
       {!Internet ? (
@@ -217,13 +217,13 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
               showIconInButton={false}
               errorMessage={NO_NETWORK}
               fn={() => {
-                // NetInfo.fetch().then(state => {
-                //   if (state.isConnected == true) {
-                //     RESET_STORE.setErrorText('');
-                //     RESET_STORE.setError(false);
-                //     setInternet(true);
-                //   }
-                // });
+                NetInfo.fetch().then(state => {
+                  if (state.isConnected == true) {
+                    RESET_STORE.setErrorText('');
+                    RESET_STORE.setError(false);
+                    setInternet(true);
+                  }
+                });
               }}
             />
           </View>
@@ -245,7 +245,7 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
             <Text style={{...styles.title, fontSize: scale(14)}}>
               Enter your verification code
             </Text>
-            {/* <TextInput
+            <TextInput
               label="OTP"
               placeholder="Enter your OTP"
               keyboardType="number-pad"
@@ -266,13 +266,13 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
                setOTP(parseInt(otp));
                console.log(otp);
                 }}
-              /> */}
-            {/* <HelperText type="error" visible={hasErrors()}> */}
-              {/* Invalid OTP */}
-            {/* </HelperText> */}
+              />
+            <HelperText type="error" visible={hasErrors()}>
+              Invalid OTP
+            </HelperText>
             <View style={styles.loginBtnView}>
               
-              {/* <Button
+              <Button
                 icon={'chevron-left'}
                 color={colors.Accent} 
                 //disabled={RESET_STORE.getSecondsRemaining !== 0}
@@ -284,11 +284,11 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
                 color: 'black',
                 }}>
                 Back
-              </Button> */}
+              </Button>
 
               {Loading ? (
                 <>
-                  {/* <ActivityIndicator size={'large'} color={colors.Tertiary} /> */}
+                  <ActivityIndicator size={'large'} color={colors.Tertiary} />
                 </>
               ) : (
                 <TouchableOpacity
@@ -299,11 +299,11 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
                   onPress={() => {
                     validateOtp();
                   }}>
-                  {/* <Icon
+                  <Icon
                     name="chevron-right"
                     size={verticalScale(44)}
                     color={colors.WHITE}
-                  /> */}
+                  />
                 </TouchableOpacity>
               )}
             </View>
@@ -337,7 +337,7 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
             </View>
             {/* {resendButton && ( */}
             <View style={styles.otpButton}>
-              {/* <Button
+              <Button
                 mode="contained"
                 loading={RESET_STORE.getSecondsRemaining !== 0}
                 disabled={RESET_STORE.getSecondsRemaining !== 0}
@@ -345,7 +345,7 @@ const OTPScreen = observer(({forwardAction, backwardAction}) => {
                   send();
                 }}>
                 <Text style={styles.otpText}>Resend OTP</Text>
-              </Button> */}
+              </Button>
             </View>
           </View>
         </>

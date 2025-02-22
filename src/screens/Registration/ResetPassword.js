@@ -7,7 +7,7 @@ import {
   Keyboard,
   Platform,
 } from 'react-native';
-// import {TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {ScaledSheet, verticalScale} from 'react-native-size-matters';
 import {useToast} from 'react-native-toast-notifications';
 import Error from '../../components/Error';
@@ -75,7 +75,7 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
             <Text style={styles.header}>Set Password</Text>
             <Text style={styles.title}>{'Enter your app password'}</Text>
 
-            {/* <TextInput
+            <TextInput
               label="Password"
               mode="outlined"
               secureTextEntry={passwordToggle}
@@ -105,9 +105,9 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
               onChangeText={password =>
                 STUDENT_REGISTRATION_STORE.setPassword(password)
               }
-            /> */}
+            />
             {passEr && <Error text="Enter your new password" />}
-            {/* <TextInput
+            <TextInput
               label="Confirm Password"
               mode="outlined"
               secureTextEntry={true}
@@ -122,7 +122,7 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
               onChangeText={password =>
                 STUDENT_REGISTRATION_STORE.setConfirmPassword(password)
               }
-            /> */}
+            />
             {cpassEr && <Error text="Enter Confirm Password" />}
             {matchEr && <Error text={PASSWORD_NO_MATCH} />}
           </ScrollView>
@@ -134,7 +134,7 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
           <Text style={styles.header}>Set Password</Text>
           <Text style={styles.title}>{'Enter your app password'}</Text>
 
-          {/* <TextInput
+          <TextInput
             label="Password"
             mode="outlined"
             secureTextEntry={passwordToggle}
@@ -158,9 +158,9 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
             onChangeText={password =>
               STUDENT_REGISTRATION_STORE.setPassword(password)
             }
-          /> */}
+          />
           {passEr && <Error text="Enter your new password" />}
-          {/* <TextInput
+          <TextInput
             label="Confirm Password"
             mode="outlined"
             secureTextEntry={true}
@@ -175,7 +175,7 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
             onChangeText={password =>
               STUDENT_REGISTRATION_STORE.setConfirmPassword(password)
             }
-          /> */}
+          />
           {cpassEr && <Error text="Enter Confirm Password" />}
           {matchEr && <Error text={PASSWORD_NO_MATCH} />}
 
