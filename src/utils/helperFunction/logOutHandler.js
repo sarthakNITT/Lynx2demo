@@ -1,4 +1,4 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {Platform} from 'react-native';
 import EncryptedStorage from 'react-native-encrypted-storage';
@@ -97,67 +97,67 @@ export const LogOutHandler = () => {
   } else {
     CLUB_USER_STORE.setIsLoading(true);
   }
-  // NetInfo.fetch().then(state => {
-  //   if (state.isConnected) {
-  //     console.log(API_STORE.getBaseUrl+API_LOGOUT_STUDENT);
-  //     console.log(USER_STORE.getFirebaseToken);
-  //     console.log(USER_STORE.getRefreshToken);
-  //     axios
-  //       .post(
-  //         API_STORE.getBaseUrl +
-  //           (USER_STORE.getUserType === STUDENT
-  //             ? API_LOGOUT_STUDENT
-  //             : API_LOGOUT_CLUB),
-  //         {
-  //           reg_token: USER_STORE.getFirebaseToken,
-  //           refreshToken: USER_STORE.getRefreshToken,
-  //         },
-  //         {
-  //           headers: {
-  //             token: USER_STORE.getUserToken,
-  //           },
-  //         },
-  //       )
-  //       .then(async response => {
-  //         if (response.status === 200) {
-  //           console.log('successfully logged out without ');
-  //           ResetEverything();
-  //           // navigation.push("Login");
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.log('error ho gaya!!!!!!!!!: ', error);
-  //         if (error.response)
-  //           if (error.response.status === 403) {
-  //             RefreshJwtHandler()
-  //               .then(() => {
-  //                 LogOutHandler();
-  //               })
-  //               .catch(() => {
-  //                 alert(
-  //                   'Failed to logout, check your internet connection or try again after some time',
-  //                 );
-  //               });
-  //             return;
-  //           }
-  //         if (USER_STORE.getUserType === STUDENT) {
-  //           STUDENT_DETAILS_STORE.setIsLoading(false);
-  //         } else {
-  //           CLUB_USER_STORE.setIsLoading(false);
-  //         }
-  //         alert(
-  //           'Failed to logout, check your internet connection or try again after some time',
-  //         );
-  //       });
-  //   } else {
-  //     if (USER_STORE.getUserType === STUDENT) {
-  //       STUDENT_DETAILS_STORE.setIsLoading(false);
-  //     } else {
-  //       CLUB_USER_STORE.setIsLoading(false);
-  //     }
-  //     alert(
-  //       'Failed to logout, check your internet connection or try again after some time',
-  //     );
-  //   }
-  // });
+  NetInfo.fetch().then(state => {
+    if (state.isConnected) {
+      console.log(API_STORE.getBaseUrl+API_LOGOUT_STUDENT);
+      console.log(USER_STORE.getFirebaseToken);
+      console.log(USER_STORE.getRefreshToken);
+      axios
+        .post(
+          API_STORE.getBaseUrl +
+            (USER_STORE.getUserType === STUDENT
+              ? API_LOGOUT_STUDENT
+              : API_LOGOUT_CLUB),
+          {
+            reg_token: USER_STORE.getFirebaseToken,
+            refreshToken: USER_STORE.getRefreshToken,
+          },
+          {
+            headers: {
+              token: USER_STORE.getUserToken,
+            },
+          },
+        )
+        .then(async response => {
+          if (response.status === 200) {
+            console.log('successfully logged out without ');
+            ResetEverything();
+            // navigation.push("Login");
+          }
+        })
+        .catch(error => {
+          console.log('error ho gaya!!!!!!!!!: ', error);
+          if (error.response)
+            if (error.response.status === 403) {
+              RefreshJwtHandler()
+                .then(() => {
+                  LogOutHandler();
+                })
+                .catch(() => {
+                  alert(
+                    'Failed to logout, check your internet connection or try again after some time',
+                  );
+                });
+              return;
+            }
+          if (USER_STORE.getUserType === STUDENT) {
+            STUDENT_DETAILS_STORE.setIsLoading(false);
+          } else {
+            CLUB_USER_STORE.setIsLoading(false);
+          }
+          alert(
+            'Failed to logout, check your internet connection or try again after some time',
+          );
+        });
+    } else {
+      if (USER_STORE.getUserType === STUDENT) {
+        STUDENT_DETAILS_STORE.setIsLoading(false);
+      } else {
+        CLUB_USER_STORE.setIsLoading(false);
+      }
+      alert(
+        'Failed to logout, check your internet connection or try again after some time',
+      );
+    }
+  });
 };

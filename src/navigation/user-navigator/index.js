@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { USER_STORE } from "../../mobx/USER_STORE";
 import ClubDescriptionScreen from '../../screens/ClubDescriptionScreen';
 import EditProfileScreen from "../../screens/EditProfileScreen";
-//import EditClubProfileScreen from '../../screens/EditProfileScreen_Club';
+// import EditClubProfileScreen from '../../screens/EditProfileScreen_Club';
 import EventDescriptionScreen from '../../screens/EventDescriptionScreen';
 import EventEditScreen from '../../screens/EventEditScreen';
 import FeedBackScreen from "../../screens/FeedbackScreen";
@@ -14,7 +14,6 @@ import StudentUserScreen from "../../screens/StudentUserScreen";
 import UserScreen from "../../screens/UserScreen";
 import * as color from "../../utils/colors";
 import { STUDENT } from "../../utils/USER_TYPE";
-//import EditProfileScreen from "../../screens/EditProfileScreen";
 import CircularListScreen from '../../screens/ClubDescriptionScreen/CircularList';
 import AnnouncementDetailScreen from '../../screens/AnnouncementDetailScreen';
 //import QRScreen from '../../screens/QRScreen';
@@ -24,13 +23,20 @@ import ManageNotificationsSettings from "../../screens/SettingsScreen/ManageNoti
 const UserStack = createNativeStackNavigator();
 
 function UserNavigator() {
-  const isStudent = USER_STORE.getUserType === STUDENT;
+  let isStudent;
+  if(USER_STORE.getUserType=='CLUB'){
+    isStudent=0;
+  }else{
+    isStudent=1;
+  }
+  // const isStudent = USER_STORE.getUserType;
+  console.log("The user type is ",USER_STORE.getUserType);
   return (
     <UserStack.Navigator>
       <UserStack.Screen
         name="Users"
-        // component={isStudent ? StudentUserScreen : UserScreen}
-        component={StudentUserScreen}
+        component={isStudent ? StudentUserScreen : UserScreen}
+        //component={StudentUserScreen}
         options={{
           headerShown: false,
           gestureEnabled: false,

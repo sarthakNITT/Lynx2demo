@@ -8,7 +8,7 @@ import { USER_STORE } from '../mobx/USER_STORE';
 import LoginScreen from '../screens/LoginScreen';
 import Registration from '../screens/Registration';
 import ResetPasswordScreen from '../screens/ResetPasswordScreens';
-// import SplashScreen from '../screens/SplashScreen';
+import SplashScreen from '../screens/SplashScreen';
 import AppNavigator from './app-navigator';
 
 const RootStack = createNativeStackNavigator();
@@ -20,12 +20,12 @@ const Navigator = observer(() => {
         screenOptions={{
           headerShown: false,
         }}>
-        {/* {AUTH_NAV_STORE.getSplashLoading ? (
+        {AUTH_NAV_STORE.getSplashLoading ? (
           <>
             <RootStack.Screen name="Splash" component={SplashScreen} />
           </>
-        ) :  */}
-        {!USER_STORE.getUserToken ? (
+        ) : 
+        !USER_STORE.getUserToken ? (
           <>
             <RootStack.Screen
               name="Login"

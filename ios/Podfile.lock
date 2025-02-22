@@ -1702,7 +1702,7 @@ PODS:
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
-  - RNScreens (4.8.0):
+  - RNScreens (4.9.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1723,9 +1723,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNScreens/common (= 4.8.0)
+    - RNScreens/common (= 4.9.0)
     - Yoga
-  - RNScreens/common (4.8.0):
+  - RNScreens/common (4.9.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2146,7 +2146,7 @@ SPEC CHECKSUMS:
   RNCClipboard: 43008eed69827e56e1fbeb06473208fdebed8f5f
   RNDeviceInfo: d863506092aef7e7af3a1c350c913d867d795047
   RNInAppBrowser: 6d3eb68d471b9834335c664704719b8be1bfdb20
-  RNScreens: 40f4d6b58fa33751b8b2b5450e3595898a993ad5
+  RNScreens: fb427360b2ad917997d779b2b63a946182ce9ce1
   RNSVG: 2089e8b3a145acb2f392017279790f007f934567
   RNVectorIcons: bd818296a51dc2bb8c3bd97a3ca399df1afe216d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748

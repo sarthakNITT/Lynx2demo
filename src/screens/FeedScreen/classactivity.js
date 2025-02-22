@@ -1,5 +1,5 @@
 import React from "react";
-// import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import axios from "axios";
 import {RefreshControl} from'react-native';
 import { API_STORE } from "../../mobx/API_STORE";
@@ -29,54 +29,54 @@ const ClassActivityScreen = () => {
       // //FEEDS_STORE.setLoading(true);
       // FEEDS_STORE.setSuccess(false);
       // feedsAPI(true);
-      // NetInfo.fetch().then((state) => {
-      //   console.log(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES);
-      //   if (state.isConnected == true) {
-      //     axios
-      //       .get(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES, {
-      //         headers: {
-      //           token: USER_STORE.getUserToken,
-      //         },
-      //         params: {},
-      //       })
-      //       .then((response) => {
-      //         if (response.status === 200) {
-      //           setMessageData(response.data.message);
-      //         }
-      //       })
-      //       .catch(() => {
-      //         toast.show("Unexpected Error has occurred", { type: "warning" });
-      //       });
-      //   } else {
-      //     toast.show(NO_NETWORK, { type: "warning" });
-      //   }
-      // });
+      NetInfo.fetch().then((state) => {
+        console.log(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES);
+        if (state.isConnected == true) {
+          axios
+            .get(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES, {
+              headers: {
+                token: USER_STORE.getUserToken,
+              },
+              params: {},
+            })
+            .then((response) => {
+              if (response.status === 200) {
+                setMessageData(response.data.message);
+              }
+            })
+            .catch(() => {
+              toast.show("Unexpected Error has occurred", { type: "warning" });
+            });
+        } else {
+          toast.show(NO_NETWORK, { type: "warning" });
+        }
+      });
       setReload(true);
     }, []);
 
   useEffect(() => {
-    // NetInfo.fetch().then((state) => {
-    //   console.log(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES);
-    //   if (state.isConnected == true) {
-    //     axios
-    //       .get(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES, {
-    //         headers: {
-    //           token: USER_STORE.getUserToken,
-    //         },
-    //         params: {},
-    //       })
-    //       .then((response) => {
-    //         if (response.status === 200) {
-    //           setMessageData(response.data.message);
-    //         }
-    //       })
-    //       .catch(() => {
-    //         toast.show("Unexpected Error has occurred", { type: "warning" });
-    //       });
-    //   } else {
-    //     toast.show(NO_NETWORK, { type: "warning" });
-    //   }
-    // });
+    NetInfo.fetch().then((state) => {
+      console.log(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES);
+      if (state.isConnected == true) {
+        axios
+          .get(API_STORE.getBaseUrl + API_FEED_SCREEN_MESSAGES, {
+            headers: {
+              token: USER_STORE.getUserToken,
+            },
+            params: {},
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              setMessageData(response.data.message);
+            }
+          })
+          .catch(() => {
+            toast.show("Unexpected Error has occurred", { type: "warning" });
+          });
+      } else {
+        toast.show(NO_NETWORK, { type: "warning" });
+      }
+    });
     setReload(true);
   }, [reload]);
 
