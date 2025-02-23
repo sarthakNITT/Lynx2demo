@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { USER_STORE } from "../../mobx/USER_STORE";
 import ClubDescriptionScreen from '../../screens/ClubDescriptionScreen';
 import EditProfileScreen from "../../screens/EditProfileScreen";
-// import EditClubProfileScreen from '../../screens/EditProfileScreen_Club';
+import EditClubProfileScreen from '../../screens/EditProfileScreen_Club';
 import EventDescriptionScreen from '../../screens/EventDescriptionScreen';
 import EventEditScreen from '../../screens/EventEditScreen';
 import FeedBackScreen from "../../screens/FeedbackScreen";
