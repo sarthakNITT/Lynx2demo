@@ -27,6 +27,7 @@ const AppNavigator = observer(() => {
       barStyle={{
         backgroundColor: color.BottomNav,
         display: BOTTOM_NAV_STORE.getTabVisibility ? null : 'none',
+        paddingBottom: Platform.OS === 'ios' ? scale(15) : scale(5), 
       }}
     >
       <Tab.Screen

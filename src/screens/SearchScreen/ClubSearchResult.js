@@ -1,4 +1,4 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
@@ -25,25 +25,25 @@ const ClubSearchResult = ({searchQuery, setScreen, navigation}) => {
   const [DATA, setDATA] = useState([]);
   const toast = useToast();
 
-  // useEffect(() => {
-  //   console.log(855);
-  //   if (DATA.length === 0)
-  //     NetInfo.fetch().then(state => {
-  //       if (state.isConnected == true) {
-  //         axios
-  //           .get(API_STORE.getBaseUrl + API_CLUB_LIST, {timeout: 2500})
-  //           .then(response => {
-  //             if (response.status === 200)
-  //               if (DATA.length === 0) setDATA(response.data.data);
-  //           })
-  //           .catch(() => {
-  //             toast.show('Unexpected Error has occurred', {type: 'warning'});
-  //           });
-  //       } else {
-  //         toast.show(NO_NETWORK, {type: 'warning'});
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    console.log(855);
+    if (DATA.length === 0)
+      NetInfo.fetch().then(state => {
+        if (state.isConnected == true) {
+          axios
+            .get(API_STORE.getBaseUrl + API_CLUB_LIST, {timeout: 2500})
+            .then(response => {
+              if (response.status === 200)
+                if (DATA.length === 0) setDATA(response.data.data);
+            })
+            .catch(() => {
+              toast.show('Unexpected Error has occurred', {type: 'warning'});
+            });
+        } else {
+          toast.show(NO_NETWORK, {type: 'warning'});
+        }
+      });
+  }, []);
 
   const [API, setAPI] = useState('');
   const [Loading, setLoading] = useState(false);

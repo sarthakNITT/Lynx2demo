@@ -17,11 +17,12 @@ import { NO_IMAGE_URL } from "../../utils/API_CONSTANTS";
 import { WHITE } from "../../utils/colors";
 import ModalContent from "../UserScreen/ModalContent";
 import * as colors from "../../utils/colors";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const StudentUserHeader = ({ studentDetails, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Modal
         animationType="fade"
         transparent={true}
@@ -135,7 +136,7 @@ const StudentUserHeader = ({ studentDetails, navigation }) => {
           </Text>
         </View>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker from '@react-native-documents/picker'
 import { Avatar } from 'react-native-paper';
 import { scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import { useToast } from 'react-native-toast-notifications';
@@ -38,9 +38,9 @@ const ProfilePic = observer(({ forwardAction, backwardAction }) => {
 
   const selectFile = async () => {
     try {
-      // const file = await DocumentPicker.pickSingle({
-      //   type: [DocumentPicker.types.images],
-      // });
+      const file = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.images],
+      });
       console.log("File selected:", file); // Log the selected file to check its details
 
       // Ensure file size validation
@@ -58,11 +58,11 @@ const ProfilePic = observer(({ forwardAction, backwardAction }) => {
 
       console.log("File URI after selection:", file.uri); // Log the URI
     } catch (err) {
-      // if (DocumentPicker.isCancel(err)) {
-      //   console.log("User canceled selection");
-      // } else {
+      if (DocumentPicker.isCancel(err)) {
+        console.log("User canceled selection");
+      } else {
         console.error("Error selecting file:", err);
-      // }
+      }
     }
   };
 

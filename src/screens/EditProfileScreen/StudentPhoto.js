@@ -1,8 +1,8 @@
 import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { Dimensions, Image, TouchableOpacity, View } from "react-native";
-// import DocumentPicker from "react-native-document-picker";
-// import ImageResizer from 'react-native-image-resizer';
+import DocumentPicker from '@react-native-documents/picker'
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 import { ActivityIndicator, Avatar } from "react-native-paper";
 import { scale, ScaledSheet, verticalScale } from "react-native-size-matters";
 import { useToast } from "react-native-toast-notifications";
@@ -20,9 +20,9 @@ const StudentPhoto = observer(() => {
 
   const selectImage = async () => {
     try {
-      // const image = await DocumentPicker.pickSingle({
-      //   type: [DocumentPicker.types.images],
-      // });
+      const image = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
 
       if (!validFileSize(image.size, MAX_STUDENT_PROFILE_PIC)) {
         toast.show(
@@ -34,39 +34,39 @@ const StudentPhoto = observer(() => {
 
       console.log(image);
       setLoading(true);
-      // ImageResizer.createResizedImage(
-      //   image.uri,
-      //   4000,
-      //   4000,
-      //   "JPEG",
-      //   90,
-      //   0,
-      //   null,
-      //   false,
-      //   { onlyScaleDown: true }
-      // )
-        // .then((response) => {
+      ImageResizer.createResizedImage(
+        image.uri,
+        4000,
+        4000,
+        "JPEG",
+        90,
+        0,
+        null,
+        false,
+        { onlyScaleDown: true }
+      )
+        .then((response) => {
         //   // response.uri is the URI of the new image that can now be displayed, uploaded...
         //   // response.path is the path of the new image
         //   // response.name is the name of the new image with the extension
         //   // response.size is the size of the new image
-        //   console.log(response);
-        //   STUDENT_EDIT_PROFILE_STORE.setImage(response);
-        //   STUDENT_EDIT_PROFILE_STORE.setPic(response.uri);
-        //   setLoading(false);
-        // })
-        // .catch((err) => {
+          console.log(response);
+          STUDENT_EDIT_PROFILE_STORE.setImage(response);
+          STUDENT_EDIT_PROFILE_STORE.setPic(response.uri);
+          setLoading(false);
+        })
+        .catch((err) => {
         //   // Oops, something went wrong. Check that the filename is correct and
         //   // inspect err to get more details.
-        //   console.log(err);
-        //   toast.show("Image not supported", { type: "warning" });
-        //   setLoading(false);
+          console.log(err);
+          toast.show("Image not supported", { type: "warning" });
+          setLoading(false);
 
-        //   return;
-        // });
+          return;
+        });
     } catch (err) {
-      // if (DocumentPicker.isCancel()) console.log(err);
-      // else throw err;
+      if (DocumentPicker.isCancel()) console.log(err);
+      else throw err;
     }
   };
 

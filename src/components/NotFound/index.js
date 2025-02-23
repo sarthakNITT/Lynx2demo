@@ -2,7 +2,7 @@ import LottieView from 'lottie-react-native';
 import React, {useState} from 'react';
 import {View,Dimensions} from 'react-native';
 import {scale, verticalScale} from 'react-native-size-matters';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import errorLottie from '../../res/lottieFiles/errorLottie.json';
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import * as colors from '../../utils/colors';
@@ -134,7 +134,7 @@ const NotFoundErrorScreen = ({
               borderRadius: scale(24),
               alignItems: 'center',
             }}>
-            {/* {showIconInButton ? (
+            {showIconInButton ? (
               <Icon
                 name={icon}
                 color={colors.Primary}
@@ -143,7 +143,7 @@ const NotFoundErrorScreen = ({
               />
             ) : (
               <View style={{width: scale(8)}} />
-            )} */}
+            )}
 
             <Text
               allowFontScaling={false}

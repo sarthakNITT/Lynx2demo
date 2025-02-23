@@ -23,7 +23,7 @@ import {
 } from "react-native-size-matters";
 import MessageAPI from "./messageAPI";
 import { useToast } from "react-native-toast-notifications";
-// import { launchImageLibrary } from "react-native-image-picker";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const pic = require("../../res/images/postSplash.png");
 
@@ -106,15 +106,15 @@ const NewMessageScreen = () => {
       quality: 0.8,
     };
 
-    // launchImageLibrary(options, (response) => {
-    //   if (response.didCancel) {
-    //     console.log("User cancelled image picker");
-    //   } else if (response.error) {
-    //     console.log("ImagePicker Error: ", response.error);
-    //   } else {
-    //     setSelectedImage(response.assets[0].uri);
-    //   }
-    // });
+    launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else {
+        setSelectedImage(response.assets[0].uri);
+      }
+    });
   };
 
   return (

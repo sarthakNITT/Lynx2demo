@@ -1,8 +1,8 @@
 import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { ActivityIndicator, Dimensions, Image, View } from "react-native";
-// import DocumentPicker from "react-native-document-picker";
-// import ImageResizer from "react-native-image-resizer";
+import DocumentPicker from '@react-native-documents/picker'
+import ImageResizer from "@bam.tech/react-native-image-resizer";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { scale, ScaledSheet, verticalScale } from "react-native-size-matters";
@@ -62,9 +62,9 @@ const EventCreationImages = observer(({ scrollViewRef, callback }) => {
     }
 
     try {
-      // const image = await DocumentPicker.pickSingle({
-      //   type: [DocumentPicker.types.images],
-      // });
+      const image = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
 
       if (!validFileSize(image.size, MAX_EVENT_IMAGE_SIZE)) {
         toast.show(`Maximum allowed image size is ${MAX_EVENT_IMAGE_SIZE} MB`, {
@@ -80,37 +80,37 @@ const EventCreationImages = observer(({ scrollViewRef, callback }) => {
         return;
       }
       setLoading(true);
-      // ImageResizer.createResizedImage(
-      //   image.uri,
-      //   1080,
-      //   1080,
-      //   "JPEG",
-      //   90,
-      //   0,
-      //   null,
-      //   false,
-      //   { onlyScaleDown: true }
-      // )
-      //   .then((response) => {
+      ImageResizer.createResizedImage(
+        image.uri,
+        1080,
+        1080,
+        "JPEG",
+        90,
+        0,
+        null,
+        false,
+        { onlyScaleDown: true }
+      )
+        .then((response) => {
       //     // response.uri is the URI of the new image that can now be displayed, uploaded...
       //     // response.path is the path of the new image
       //     // response.name is the name of the new image with the extension
       //     // response.size is the size of the new image
-      //     console.log(response);
-      //     EVENT_CREATION_STORE.addImage(response);
-      //     EVENT_CREATION_STORE.setProfilePictureSelected(false);
+          console.log(response);
+          EVENT_CREATION_STORE.addImage(response);
+          EVENT_CREATION_STORE.setProfilePictureSelected(false);
 
-      //     setLoading(false);
-      //   })
-      //   .catch((err) => {
+          setLoading(false);
+        })
+        .catch((err) => {
       //     // Oops, something went wrong. Check that the filename is correct and
       //     // inspect err to get more details.
-      //     console.log(err);
-      //     toast.show("Image not supported", { type: "warning" });
-      //     setLoading(false);
+          console.log(err);
+          toast.show("Image not supported", { type: "warning" });
+          setLoading(false);
 
-      //     return;
-      //   });
+          return;
+        });
 
       console.log(EVENT_CREATION_STORE.getImages.length);
       //EVENT_CREATION_STORE.setLoading(false);
@@ -128,8 +128,8 @@ const EventCreationImages = observer(({ scrollViewRef, callback }) => {
         }
       );
     } catch (err) {
-      // if (DocumentPicker.isCancel()) console.log(err);
-      // else throw err;
+      if (DocumentPicker.isCancel()) console.log(err);
+      else throw err;
     }
   };
 

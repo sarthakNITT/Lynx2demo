@@ -36,6 +36,7 @@ import { eventList } from "./eventListAPI";
 import FabGroup from "./FabGroup";
 import NoEventCard from "./NoEventCard";
 import TopLayout from "./TopLayout";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const CalendarScreen = observer(({ navigation }) => {
   const toast = useToast();
@@ -180,7 +181,7 @@ const CalendarScreen = observer(({ navigation }) => {
   const renderEmptyItem = () => <NoEventCard />;
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {Platform.OS === "android" ? (
         <Animated.View
           style={{
@@ -393,7 +394,7 @@ const CalendarScreen = observer(({ navigation }) => {
           ) : null}
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 });
 

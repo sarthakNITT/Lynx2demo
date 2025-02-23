@@ -8,6 +8,7 @@ import CircularSearchResult from './CircularSearchResult';
 import ClubSearchResult from './ClubSearchResult.js';
 import EventSearchResult from './EventSearchResult';
 import TagSearchResult from './TagSearchResult';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -35,7 +36,7 @@ const SearchScreen = ({route, navigation}) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Searchbar
           style={{elevation: 0, margin: 0, padding: 0, color: 'red'}}
@@ -134,7 +135,7 @@ const SearchScreen = ({route, navigation}) => {
           />
         </Tab.Navigator>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

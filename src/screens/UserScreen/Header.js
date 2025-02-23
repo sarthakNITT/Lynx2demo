@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { scale, ScaledSheet, verticalScale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/MaterialIcons";
-// import ImagePalette from "react-native-image-palette";
+import ImagePalette from "@somesoap/react-native-image-palette";
 import ImageView from "../../components/ImageView";
 import LoaderPage from "../../components/LoadingScreen";
 import Text from "../../components/TextComponent";
@@ -38,17 +38,17 @@ const Header = ({ name, followers, url, description, navigation }) => {
     setShowingMore(!showingMore);
   };
 
-  // const getColors = () => {
-  //   ImagePalette.getNamedColors(url)
-  //     .then(({ vibrant, muted }) => {
-  //       setCoverColor(vibrant || colors.Primary);
-  //       setCoverIconColor(muted || colors.Secondary);
-  //     })
-  //     .catch(() => {
-  //       setCoverColor(colors.Primary); // Fallback color
-  //       setCoverIconColor(colors.Secondary);
-  //     });
-  // };
+  const getColors = () => {
+    ImagePalette.getNamedColors(url)
+      .then(({ vibrant, muted }) => {
+        setCoverColor(vibrant || colors.Primary);
+        setCoverIconColor(muted || colors.Secondary);
+      })
+      .catch(() => {
+        setCoverColor(colors.Primary); // Fallback color
+        setCoverIconColor(colors.Secondary);
+      });
+  };
 
   // Get image size and colors
   Image.getSize(url, () => {

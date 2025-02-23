@@ -1,4 +1,4 @@
-// import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import axios from "axios";
 import { API_STORE } from "../../mobx/API_STORE";
 import { USER_STORE } from "../../mobx/USER_STORE";
@@ -163,7 +163,7 @@ import { NO_NETWORK, UNEXPECTED_ERROR } from "../../utils/ERROR_MESSAGES";
 // };
 
 // export default MessageAPI;
-// import ImageResizer from "react-native-image-resizer";
+import ImageResizer from "@bam.tech/react-native-image-resizer";
 import mime from "mime";
 
 const MessageAPI = async (
@@ -174,11 +174,11 @@ const MessageAPI = async (
   toast,
   successcallback
 ) => {
-  // const state = await NetInfo.fetch();
-  // if (!state.isConnected) {
-  //   console.error(NO_NETWORK);
-  //   return;
-  // }
+  const state = await NetInfo.fetch();
+  if (!state.isConnected) {
+    console.error(NO_NETWORK);
+    return;
+  }
 
   // console.log("Title:", title);
   // console.log("Message:", message);
@@ -192,17 +192,17 @@ formData.append("description", message);
 if (selectedImage) {
   try {
     // Resize image to a more reasonable size
-    // const resizedImage = await ImageResizer.createResizedImage(
-    //   selectedImage,
-    //   800, // Width
-    //   800, // Height
-    //   "JPEG",
-    //   80, // Quality (Increased)
-    //   0,
-    //   null,
-    //   false,
-    //   { onlyScaleDown: true }
-    // );
+    const resizedImage = await ImageResizer.createResizedImage(
+      selectedImage,
+      800, // Width
+      800, // Height
+      "JPEG",
+      80, // Quality (Increased)
+      0,
+      null,
+      false,
+      { onlyScaleDown: true }
+    );
 
     console.log("Resized Image:", resizedImage);
 

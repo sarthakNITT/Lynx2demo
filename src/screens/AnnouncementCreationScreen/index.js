@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-// import DocumentPicker from "react-native-document-picker";
+import DocumentPicker from '@react-native-documents/picker'
 import { Button, Divider } from "react-native-paper";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 import { useToast } from "react-native-toast-notifications";
@@ -46,7 +46,7 @@ const AnnouncementCreationScreen = observer(({ navigation }) => {
 
   const selectFiles = async () => {
     try {
-      // console.log("this is  ", DocumentPicker.types.images);
+      console.log("this is  ", DocumentPicker.types.images);
 
       // const files = await DocumentPicker.pickMultiple({
       //   type: [
@@ -55,14 +55,14 @@ const AnnouncementCreationScreen = observer(({ navigation }) => {
       //     DocumentPicker.types.images,
       //   ],
       // });
-      // const files = await DocumentPicker.pick({
-      //   type: [
-      //     DocumentPicker.types.docx,
-      //     DocumentPicker.types.pdf,
-      //     DocumentPicker.types.images,
-      //   ],
-      //   allowMultiSelection: true,
-      // });
+      const files = await DocumentPicker.pick({
+        type: [
+          DocumentPicker.types.docx,
+          DocumentPicker.types.pdf,
+          DocumentPicker.types.images,
+        ],
+        allowMultiSelection: true,
+      });
       console.log("the filkes are");
 
       if (
@@ -97,8 +97,8 @@ const AnnouncementCreationScreen = observer(({ navigation }) => {
         ...files,
       ]);
     } catch (err) {
-      // if (DocumentPicker.isCancel(err)) console.log(err);
-      // else throw err;
+      if (DocumentPicker.isCancel(err)) console.log(err);
+      else throw err;
     }
   };
 
