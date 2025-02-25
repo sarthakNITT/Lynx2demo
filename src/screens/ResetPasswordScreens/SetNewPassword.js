@@ -77,6 +77,12 @@ const SetNewPassword = ({navigation}) => {
                 console.log(data);
                 RESET_STORE.setSuccess(true);
                 RESET_STORE.setLoading(false);
+
+                //added by sarthak to navigate automatically to login screen after successfully set new password
+                navigation.reset({
+                  index: 0,
+                  routes: [{name: 'Login'}],
+                });
               });
             } else {
               return response.json().then(data => {
