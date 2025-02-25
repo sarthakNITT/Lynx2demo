@@ -5,7 +5,7 @@ class activityStore {
   state = {
     error: true,
     errorText: '',
-    loading: true,
+    loading: false,
     success: false,
     data: [],
     refreshing: false,

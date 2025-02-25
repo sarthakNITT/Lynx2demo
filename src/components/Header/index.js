@@ -11,14 +11,23 @@ import {
 import Text from '../TextComponent';
 
 const Header = ({props, title = '', func = ''}) => {
+
+  const handleBackPress = () => {
+    setTimeout(() => {
+      if (func === '') {
+        props.navigation.goBack();
+      } else {
+        func();
+      }
+    }, 0);
+  };
+  
+
   return (
     <View style={styles.header}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          if (func === '') props.navigation.goBack();
-          else func();
-        }}>
+        onPress={handleBackPress}>
         {Platform.OS === 'ios' ? (
           <Icon
             name="arrow-back-ios"

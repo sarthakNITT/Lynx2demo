@@ -1,4 +1,4 @@
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {API_STORE} from '../mobx/API_STORE';
 import {API_SEARCH} from '../utils/API_CONSTANTS';
@@ -17,16 +17,19 @@ async function API_CALL(query, type, successCallback, failureCallBack) {
     console.log(response.data.message);
     successCallback(response.data);
   } catch (error) {
-    failureCallBack(error.response.data.message);
+    const errorMessage =
+      error.response && error.response.data && error.response.data.message
+        ? error.response.data.message
+        : error.message || 'Unexpected error occurred';
+    failureCallBack(errorMessage);
   }
 }
-export const searchApi = (query, type, successCallback, failureCallBack) => {
-  //using netinfo to check if online
-  // NetInfo.fetch().then(state => {
-  //   if (state.isConnected === true) {
-  //     API_CALL(query, type, successCallback, failureCallBack);
-  //   } else {
-  //     failureCallBack(NO_NETWORK);
-  //   }
-  // });
+
+export const searchApi = async (query, type, successCallback, failureCallBack) => {
+  const state = await NetInfo.fetch();
+  if (state.isConnected === true) {
+    API_CALL(query, type, successCallback, failureCallBack);
+  } else {
+    failureCallBack(NO_NETWORK);
+  }
 };

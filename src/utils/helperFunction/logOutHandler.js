@@ -28,7 +28,7 @@ import {SECURE_STORE} from '../../mobx/SECURITY_STORE';
 import {STUDENT_DETAILS_STORE} from '../../mobx/STUDENT_DETAILS_STORE';
 import {STUDENT_EDIT_PROFILE_STORE} from '../../mobx/STUDENT_EDIT_PROFILE_STORE';
 import {STUDENT_REGISTRATION_STORE} from '../../mobx/STUDENT_REGISTRATION_STORE';
-// import LoginScreen from '../../screens/LoginScreen';
+import LoginScreen from '../../screens/LoginScreen';
 import {USER_STORE} from '../../mobx/USER_STORE';
 import {API_LOGOUT_CLUB, API_LOGOUT_STUDENT} from '../API_CONSTANTS';
 import {
@@ -42,6 +42,12 @@ import {
 } from '../STORAGE_KEYS';
 import {STUDENT} from '../USER_TYPE';
 import {RefreshJwtHandler} from './refreshJwtHandler';
+import { Keyboard } from 'react-native';
+
+if (typeof Keyboard.removeListener !== 'function' && Keyboard.remove) {
+  Keyboard.removeListener = Keyboard.remove;
+}
+
 
 const ResetEverything = async () => {
   if (Platform.OS === 'ios') {
@@ -122,7 +128,7 @@ export const LogOutHandler = () => {
           if (response.status === 200) {
             console.log('successfully logged out without ');
             ResetEverything();
-            // navigation.push("Login");
+            navigation.push("Login");
           }
         })
         .catch(error => {

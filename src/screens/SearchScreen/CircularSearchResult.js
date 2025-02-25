@@ -10,7 +10,7 @@ import {PreventDoubleClickWithOpacity as TouchableOpacity} from '../../component
 import {BOTTOM_NAV_STORE} from '../../mobx/BOTTOM_NAV_STORE';
 import * as colors from '../../utils/colors';
 import {HorizontalPadding} from '../../utils/UI_CONSTANTS';
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import {API_STORE} from '../../mobx/API_STORE';
 import {NO_NETWORK} from '../../utils/ERROR_MESSAGES';
@@ -47,31 +47,31 @@ const CircularSearchResult = ({searchQuery, setScreen, navigation}) => {
   const [LoadingList, setLoadingList] = useState(true);
   const delay = 1000;
 
-  // useEffect(() => {
-  //   setLoadingList(true);
-  //   if (DATA.length === 0)
-  //     NetInfo.fetch().then(state => {
-  //       if (state.isConnected == true) {
-  //         axios
-  //           .get(API_STORE.getBaseUrl + API_CIRCULAR_LIST, {timeout: 2500})
-  //           .then(response => {
-  //             setLoadingList(false);
-  //             if (response.status === 200)
-  //               if (DATA.length === 0) {
-  //                 setLoadingList(false);
-  //                 setDATA(response.data.circulars);
-  //               }
-  //           })
-  //           .catch(() => {
-  //             setLoadingList(false);
-  //             toast.show('Unexpected Error has occurred', {type: 'warning'});
-  //           });
-  //       } else {
-  //         setLoadingList(false);
-  //         toast.show(NO_NETWORK, {type: 'warning'});
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    setLoadingList(true);
+    if (DATA.length === 0)
+      NetInfo.fetch().then(state => {
+        if (state.isConnected == true) {
+          axios
+            .get(API_STORE.getBaseUrl + API_CIRCULAR_LIST, {timeout: 2500})
+            .then(response => {
+              setLoadingList(false);
+              if (response.status === 200)
+                if (DATA.length === 0) {
+                  setLoadingList(false);
+                  setDATA(response.data.circulars);
+                }
+            })
+            .catch(() => {
+              setLoadingList(false);
+              toast.show('Unexpected Error has occurred', {type: 'warning'});
+            });
+        } else {
+          setLoadingList(false);
+          toast.show(NO_NETWORK, {type: 'warning'});
+        }
+      });
+  }, []);
 
   const handleClick = onPress => {
     if (clicked) {
@@ -85,37 +85,39 @@ const CircularSearchResult = ({searchQuery, setScreen, navigation}) => {
       }, delay),
     );
   };
-
-  if (isFocused) {
-    setScreen('circulars');
-    BOTTOM_NAV_STORE.setTabVisibility(true);
-    if (searchQuery.trim() != '') {
-      if (searchQuery.trim() != API) {
-        setAPI(searchQuery.trim());
-        setLoading(true);
-        console.log('Doing API CALL IN ACADEMIC SEARCH: ' + searchQuery.trim());
-
-        searchApi(
-          searchQuery.trim(),
-          'admin',
-          res => {
-            setError(false);
-            setData(res.data);
-            setLoading(false);
-          },
-          err => {
-            setErrorText(err);
-            setError(true);
-
-            setData([]);
-            setLoading(false);
-          },
-        );
+  useEffect(()=>{
+    if (isFocused) {
+      setScreen('circulars');
+      BOTTOM_NAV_STORE.setTabVisibility(true);
+      if (searchQuery.trim() != '') {
+        if (searchQuery.trim() != API) {
+          setAPI(searchQuery.trim());
+          setLoading(true);
+          console.log('Doing API CALL IN ACADEMIC SEARCH: ' + searchQuery.trim());
+  
+          searchApi(
+            searchQuery.trim(),
+            'admin',
+            res => {
+              setError(false);
+              setData(res.data);
+              setLoading(false);
+            },
+            err => {
+              setErrorText(err);
+              setError(true);
+  
+              setData([]);
+              setLoading(false);
+            },
+          );
+        }
+      } else if (searchQuery.trim() === '' && API != '') {
+        setAPI('');
       }
-    } else if (searchQuery.trim() === '' && API != '') {
-      setAPI('');
     }
-  }
+  }, [isFocused, searchQuery, API, setScreen]);
+  
   const toggleSwitch = () => {
     setOnlyAdmin(!onlyAdmin);
   };
@@ -206,7 +208,7 @@ const CircularSearchResult = ({searchQuery, setScreen, navigation}) => {
                           flex: 1,
                           flexDirection: 'row',
                           justifyContent: 'flex-start',
-                          marginTop: verticalScale(12),
+                          marginTop: verticalScale(),
                           marginBottom: verticalScale(8),
                           alignItems: 'center',
                           borderRadius: scale(8),
@@ -305,7 +307,7 @@ const CircularSearchResult = ({searchQuery, setScreen, navigation}) => {
                             flex: 1,
                             flexDirection: 'row',
                             justifyContent: 'flex-start',
-                            marginTop: verticalScale(12),
+                            marginTop: verticalScale(0),
                             marginBottom: verticalScale(8),
                             alignItems: 'center',
                             borderRadius: scale(8),
@@ -330,6 +332,7 @@ const CircularSearchResult = ({searchQuery, setScreen, navigation}) => {
                                 ? colors.Accent
                                 : colors.GRAY_DARK,
                               textTransform: 'uppercase',
+                              marginTop:  scale(0)
                             }}>
                             Official Only
                           </Text>

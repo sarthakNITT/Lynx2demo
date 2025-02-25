@@ -22,6 +22,7 @@ import { API_STORE } from "../../mobx/API_STORE";
 import { DELETE_STUDENT_ACCOUNT } from "../../utils/API_CONSTANTS";
 import { USER_STORE } from "../../mobx/USER_STORE";
 import LoaderPage from "../../components/LoadingScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const StudentSettings = observer(({ navigation }) => {
   const [modalTitle, setModalTitle] = useState("");
@@ -32,7 +33,7 @@ const StudentSettings = observer(({ navigation }) => {
   const [Loading, setLoading] = useState(false);
   // console.log("token", USER_STORE.getUserToken);
   return (
-    <View>
+    <SafeAreaView>
       {Loading ? (
         <>
           <LoaderPage />
@@ -170,7 +171,7 @@ const StudentSettings = observer(({ navigation }) => {
           </ScrollView>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 });
 

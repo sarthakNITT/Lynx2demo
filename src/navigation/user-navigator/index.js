@@ -19,6 +19,12 @@ import AnnouncementDetailScreen from '../../screens/AnnouncementDetailScreen';
 //import QRScreen from '../../screens/QRScreen';
 import SecurityScreen from "../../screens/SpiderSecurityScreen";
 import ManageNotificationsSettings from "../../screens/SettingsScreen/ManageNotificationScreen";
+import { Keyboard } from 'react-native';
+
+if (typeof Keyboard.removeListener !== 'function' && Keyboard.remove) {
+  Keyboard.removeListener = Keyboard.remove;
+}
+
 
 const UserStack = createNativeStackNavigator();
 

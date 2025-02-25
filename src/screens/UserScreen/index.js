@@ -72,6 +72,7 @@ const UserScreen = observer(({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalButtons, setModalButtons] = useState({});
+  console.log(API_STORE.getCDN + CLUB_USER_STORE.getProfilePic);
 
   return (
     <View style={{ backgroundColor: colors.WHITE, flex: 1 }}>

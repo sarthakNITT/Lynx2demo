@@ -4,7 +4,7 @@ class feedsStore {
   state = {
     error: true,
     errorText: '',
-    loading: true,
+    loading: false,
     success: false,
     data: {
       message: '',

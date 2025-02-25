@@ -51,15 +51,16 @@ const Header = ({ name, followers, url, description, navigation }) => {
   };
 
   // Get image size and colors
-  Image.getSize(url, () => {
-    getColors();
-  });
+  // Image.getSize(url, () => {
+  //   getColors();
+  // });
 
   const onTextLayout = useCallback((e) => {
     setShowMoreText(e.nativeEvent.lines.length > NUMBER_OF_LINES);
   });
-
-  return coverColor === colors.Primary ? (
+  console.log(coverColor);
+  console.log(colors.Primary);
+    return coverColor === 'NA' ? (
     <>
       <View
         style={{
@@ -169,7 +170,7 @@ const styles = ScaledSheet.create({
   name: {
     fontSize: "18@s",
     fontWeight: "bold",
-    color: colors.BLACK,
+    paddingLeft:"35@s"
   },
   icon: {
     paddingHorizontal: "10@s",
@@ -188,6 +189,7 @@ const styles = ScaledSheet.create({
     paddingVertical: "2@vs",
     fontWeight: "bold",
     paddingBottom: 0,
+    paddingLeft:"30@s"
   },
   modalView: {
     backgroundColor: colors.WHITE,

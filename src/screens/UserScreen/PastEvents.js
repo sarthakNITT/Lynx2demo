@@ -27,6 +27,8 @@ const PastEventsComponent = observer(({ functions }) => {
                 marginHorizontal: scale(16),
                 marginTop: verticalScale(10),
                 alignSelf: "center",
+                color:'#000000',
+                //fontweight:'100%'
               }}
             >
               {NO_PAST_EVENT}

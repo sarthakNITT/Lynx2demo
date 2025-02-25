@@ -176,8 +176,9 @@ const Name = observer(({forwardAction}) => {
               setmodalType(MODAL_TYPE_DEPARTMENT);
               setData(DEPARTMENT_STORE.getRemainingDepartment);
               STUDENT_REGISTRATION_STORE.toggleModalVisible();
-            }}>
+            }}
             disabled={DEPARTMENT_STORE.getDepartmentFound}
+          >
             <Text
               mode="outlined"
               disabled={true}

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'react-native';
-// import {Button} from 'react-native-paper';
+// import { Button } from 'react-native';
+import {Button} from 'react-native-paper';
 import {ScaledSheet} from 'react-native-size-matters';
 import * as colors from '../../utils/colors';
 

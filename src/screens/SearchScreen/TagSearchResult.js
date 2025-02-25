@@ -1,5 +1,5 @@
 import {useIsFocused} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Keyboard, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -39,37 +39,38 @@ const TagSearchResult = ({searchQuery, setScreen, navigation}) => {
       }, delay),
     );
   };
-
-  if (isFocused) {
-    setScreen('events by tag');
-    BOTTOM_NAV_STORE.setTabVisibility(true);
-    if (searchQuery.trim() != '') {
-      if (searchQuery.trim() != API) {
-        setAPI(searchQuery.trim());
-        setLoading(true);
-        console.log('Doing API CALL IN TAG SEARCH: ' + searchQuery.trim());
-
-        searchApi(
-          searchQuery.trim(),
-          'tag',
-          res => {
-            setError(false);
-            setData(res.data);
-            setLoading(false);
-          },
-          err => {
-            setErrorText(err);
-            setError(true);
-
-            setData([]);
-            setLoading(false);
-          },
-        );
+  useEffect(()=>{
+    if (isFocused) {
+      setScreen('events by tag');
+        BOTTOM_NAV_STORE.setTabVisibility(true);
+        if (searchQuery.trim() != '') {
+          if (searchQuery.trim() != API) {
+            setAPI(searchQuery.trim());
+            setLoading(true);
+            console.log('Doing API CALL IN TAG SEARCH: ' + searchQuery.trim());
+    
+            searchApi(
+              searchQuery.trim(),
+              'tag',
+              res => {
+                setError(false);
+                setData(res.data);
+                setLoading(false);
+              },
+              err => {
+                setErrorText(err);
+                setError(true);
+    
+                setData([]);
+                setLoading(false);
+              },
+            );
+          }
+        } else if (searchQuery.trim() === '' && API != '') {
+          setAPI('');
+        }
       }
-    } else if (searchQuery.trim() === '' && API != '') {
-      setAPI('');
-    }
-  }
+  }, [isFocused, searchQuery, API, setScreen]);
 
   return (
     <View style={{flex: 1}}>

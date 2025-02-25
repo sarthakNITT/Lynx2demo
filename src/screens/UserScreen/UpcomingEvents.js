@@ -37,6 +37,7 @@ const UpcomingEventsComponent = observer(({ functions }) => {
                 marginHorizontal: scale(16),
                 marginTop: verticalScale(10),
                 alignSelf: "center",
+                color:'#000000',
               }}
             >
               {NO_EVENTS_CLUBS}

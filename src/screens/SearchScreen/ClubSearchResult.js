@@ -19,6 +19,7 @@ import {ACCENT_SEARCH_SCREEN} from '../../utils/LOADING_TYPES';
 import {HorizontalPadding} from '../../utils/UI_CONSTANTS';
 
 const ClubSearchResult = ({searchQuery, setScreen, navigation}) => {
+  console.log('ClubSearchResult - searchQuery:', searchQuery);
   const footer = () => {
     return <View style={{height: verticalScale(6)}} />;
   };
@@ -68,37 +69,39 @@ const ClubSearchResult = ({searchQuery, setScreen, navigation}) => {
       }, delay),
     );
   };
-
-  if (isFocused) {
-    BOTTOM_NAV_STORE.setTabVisibility(true);
-    setScreen('accounts');
-    if (searchQuery.trim() != '') {
-      if (searchQuery.trim() != API) {
-        setAPI(searchQuery.trim());
-        setLoading(true);
-        console.log('Doing API CALL IN CLUB SEARCH: ' + searchQuery.trim());
-        searchApi(
-          searchQuery.trim(),
-          'club',
-          res => {
-            setError(false);
-            setData(res.data);
-            setLoading(false);
-          },
-          err => {
-            setErrorText(err);
-            setError(true);
-
-            setData([]);
-            setLoading(false);
-          },
-        );
-      }
-    } else if (searchQuery.trim() === '' && API != '') {
-      setAPI('');
-    }
-  }
-
+  useEffect(()=>{
+    console.log('Doing API CALL IN CLUB SEARCH: ' + searchQuery.trim());
+    if (isFocused) {
+      BOTTOM_NAV_STORE.setTabVisibility(true);
+        setScreen('accounts');
+        if (searchQuery.trim() != '') {
+          if (searchQuery.trim() != API) {
+            setAPI(searchQuery.trim());
+            setLoading(true);
+            console.log('Doing API CALL IN CLUB SEARCH: ' + searchQuery.trim());
+            searchApi(
+              searchQuery.trim(),
+              'club',
+              res => {
+                setError(false);
+                setData(res.data);
+                setLoading(false);
+              },
+              err => {
+                setErrorText(err);
+                setError(true);
+    
+                setData([]);
+                setLoading(false);
+              },
+            );
+          }
+        } else if (searchQuery.trim() === '' && API != '') {
+          setAPI('');
+        }
+      }    
+  }, [isFocused, searchQuery, API, setScreen]);
+  
   return (
     <View style={{flex: 1}}>
       {Loading ? (

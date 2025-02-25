@@ -9,6 +9,12 @@ import * as colors from "../../utils/colors";
 import { LogOutHandler } from "../../utils/helperFunction/logOutHandler";
 import { HorizontalPadding, ICON_SIZE_LARGE } from "../../utils/UI_CONSTANTS";
 import { STUDENT } from "../../utils/USER_TYPE";
+import { Keyboard } from 'react-native';
+
+if (typeof Keyboard.removeListener !== 'function' && Keyboard.remove) {
+  Keyboard.removeListener = Keyboard.remove;
+}
+
 
 const ModalContent = ({ ModalVisible, navigation }) => {
   const HandleLogout = () => {
@@ -82,7 +88,7 @@ const ModalContent = ({ ModalVisible, navigation }) => {
               size={scale(ICON_SIZE_LARGE)}
               style={{ alignSelf: "flex-end", paddingRight: scale(6) }}
             />
-            <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(14) }}>
+            <Text style={{ flex: 1, alignSelf: "center",  fontSize: scale(16), color: colors.EventCard_ShareIcon  }}>
               Settings
             </Text>
           </View>
@@ -110,7 +116,7 @@ const ModalContent = ({ ModalVisible, navigation }) => {
             size={scale(ICON_SIZE_LARGE)}
             style={{ alignSelf: "flex-end", paddingRight: scale(6) }}
           />
-          <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(14) }}>
+          <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(16), color: colors.EventCard_ShareIcon }}>
             Edit Profile
           </Text>
         </View>
@@ -134,7 +140,7 @@ const ModalContent = ({ ModalVisible, navigation }) => {
             size={scale(ICON_SIZE_LARGE)}
             style={{ alignSelf: "flex-end", paddingRight: scale(6) }}
           />
-          <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(14) }}>
+           <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(16), color: colors.EventCard_ShareIcon  }}>
             Send Feedback
           </Text>
         </View>
@@ -153,7 +159,7 @@ const ModalContent = ({ ModalVisible, navigation }) => {
             size={scale(ICON_SIZE_LARGE)}
             style={{ alignSelf: "flex-end", paddingRight: scale(6) }}
           />
-          <Text style={{ flex: 1, alignSelf: "center", fontSize: scale(14) }}>
+          <Text style={{ flex: 1, alignSelf: "center",  fontSize: scale(16), color: colors.EventCard_ShareIcon  }}>
             Log Out
           </Text>
         </View>

@@ -57,13 +57,14 @@ const RecentEventCard = ({ eventItem, functions }) => {
             fontSize: scale(14),
             fontWeight: "bold",
             paddingRight: scale(10),
+            color:'#000000',
           }}
           numberOfLines={1}
         >
           {eventItem.Title}
         </Text>
 
-        <Text style={{ fontSize: scale(12) }}>
+        <Text style={{ fontSize: scale(12),color:'#000000', }}>
           {formattedDate} | {formattedTime}
         </Text>
       </View>

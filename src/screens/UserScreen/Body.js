@@ -45,7 +45,7 @@ const Body = observer(({ functions }) => {
       >
         <Button
           onPress={() => goToLive()}
-          color={colors.Accent}
+          textColor={colors.Accent}
           style={{
             opacity: CLUB_USER_STORE.getLivePageShow ? 1 : 0.35,
             flex: 1,
@@ -63,7 +63,7 @@ const Body = observer(({ functions }) => {
         </Button>
         <Button
           onPress={() => goToPast()}
-          color={colors.Accent}
+          textColor={colors.Accent}
           style={{
             opacity: CLUB_USER_STORE.getLivePageShow ? 0.35 : 1,
             flex: 1,

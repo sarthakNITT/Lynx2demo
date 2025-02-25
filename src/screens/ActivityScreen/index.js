@@ -24,6 +24,7 @@ import * as colors from '../../utils/colors';
 import {ACCENT_ACTIVITY_SCREEN} from '../../utils/LOADING_TYPES';
 import {HeaderHeight, HorizontalPadding} from '../../utils/UI_CONSTANTS';
 import ActivityAPI from './ActivityAPI';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 let PAGE_NUMBER = 0;
 const ActivityScreen = observer(({route, navigation}) => {
@@ -116,7 +117,7 @@ const ActivityScreen = observer(({route, navigation}) => {
           }}
         />
       ) : (
-        <View>
+        <SafeAreaView>
           {Platform.OS === 'android' ? (
             <Animated.View
               style={{
@@ -280,7 +281,7 @@ const ActivityScreen = observer(({route, navigation}) => {
             numColumns={1}
             keyExtractor={(item, index) => item._id}
           />
-        </View>
+        </SafeAreaView>
       )}
     </View>
   );

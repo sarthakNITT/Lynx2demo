@@ -1,5 +1,5 @@
 import {useIsFocused} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Keyboard, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {scale, verticalScale} from 'react-native-size-matters';
@@ -39,37 +39,38 @@ const EventSearchResult = ({searchQuery, setScreen, navigation}) => {
       }, delay),
     );
   };
+  useEffect(()=>{
+    if (isFocused) {
+      setScreen('events');
+      BOTTOM_NAV_STORE.setTabVisibility(true);
+      if (searchQuery.trim() != '') {
+        if (searchQuery.trim() != API) {
+          setAPI(searchQuery.trim());
+          setLoading(true);
+          console.log('Doing API CALL IN EVENT SEARCH: ' + searchQuery.trim());
 
-  if (isFocused) {
-    setScreen('events');
-    BOTTOM_NAV_STORE.setTabVisibility(true);
-    if (searchQuery.trim() != '') {
-      if (searchQuery.trim() != API) {
-        setAPI(searchQuery.trim());
-        setLoading(true);
-        console.log('Doing API CALL IN EVENT SEARCH: ' + searchQuery.trim());
+          searchApi(
+            searchQuery.trim(),
+            'event',
+            res => {
+              setError(false);
+              setData(res.data);
+              setLoading(false);
+            },
+            err => {
+              setErrorText(err);
+              setError(true);
 
-        searchApi(
-          searchQuery.trim(),
-          'event',
-          res => {
-            setError(false);
-            setData(res.data);
-            setLoading(false);
-          },
-          err => {
-            setErrorText(err);
-            setError(true);
-
-            setData([]);
-            setLoading(false);
-          },
-        );
+              setData([]);
+              setLoading(false);
+            },
+          );
+        }
+      } else if (searchQuery.trim() === '' && API != '') {
+        setAPI('');
       }
-    } else if (searchQuery.trim() === '' && API != '') {
-      setAPI('');
     }
-  }
+  }, [isFocused, searchQuery, API, setScreen]);
 
   return (
     <View style={{flex: 1}}>

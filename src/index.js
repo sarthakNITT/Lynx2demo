@@ -18,6 +18,12 @@ import * as color from "./utils/colors";
 
 // Sample MobX store (if you're using one, or use useLocalObservable)
 import { useStore } from "./store"; // You can create this hook if needed
+import { Keyboard } from 'react-native';
+
+if (typeof Keyboard.removeListener !== 'function' && Keyboard.remove) {
+  Keyboard.removeListener = Keyboard.remove;
+}
+
 
 const resolveAfterNSeconds = (n) => {
   const delay = n * 1000;
