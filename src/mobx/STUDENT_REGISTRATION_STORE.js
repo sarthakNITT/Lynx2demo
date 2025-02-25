@@ -20,8 +20,8 @@ class Registration {
     dateSelected: false,
     departmentId: '',
     CR: {
-      isCR: false,
-      isCommon: false,
+      IsCR: false,
+      IsCommon: false,
     },
     apiSuccess: false,
     apiCall: false,
@@ -53,7 +53,7 @@ class Registration {
     this.state.modalVisible = '';
     this.state.dateSelected = false;
     this.state.departmentId = '';
-    this.state.CR = { isCR:false, isCommon:false }; 
+    this.state.CR = { isCR:false, IsCommon:false }; 
   };
   setApiResponse = val => {
     this.state.apiResponse = val;
@@ -70,13 +70,13 @@ class Registration {
     return this.state.CR.isCR;
   }
 
-  setIscommon = (val) => {
-    this.state.CR.isCommon = val;
+  setIsCommon = (val) => {
+    this.state.CR.IsCommon = val;
   };
 
 
-  get getIscommon() {
-    return this.state.CR.isCommon;
+  get getIsCommon() {
+    return this.state.CR.IsCommon;
   }
 
   // get getIsccr() {
@@ -323,9 +323,9 @@ class Registration {
       getisCR: computed,
 
       setIsCommon: action,
-      getIscommon: computed,
+      getIsCommon: computed,
 
-      getIsccr: computed,
+      // getIsccr: computed,
     });
   }
 }

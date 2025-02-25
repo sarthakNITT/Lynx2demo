@@ -22,7 +22,7 @@ class UserData {
 
     CR: {
       isCR: false,
-      isCommon: false,
+      IsCommon: false,
     },
 
     //for notifications
@@ -43,7 +43,7 @@ class UserData {
     this.state.clubId = '';
     this.state.refreshToken = '';
     this.state.appLoaded = false;
-    this.state.CR = { isCR:false, isCommon:false }; 
+    this.state.CR = { isCR:false, IsCommon:false }; 
   };
 
   setUserRollNumber = rNo => {
@@ -71,11 +71,11 @@ class UserData {
   }
 
   setIsCommon = (val) => {
-    this.state.CR.isCommon = val;
+    this.state.CR.IsCommon = val;
   };
 
   get getIsCommon() {
-    return this.state.CR.isCommon;
+    return this.state.CR.IsCommon;
   }
 
   setClubId = val => {
