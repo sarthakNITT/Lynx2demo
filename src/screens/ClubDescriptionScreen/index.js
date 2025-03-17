@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  SafeAreaView
 } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import {
@@ -77,9 +78,13 @@ const ClubDescriptionScreen = observer(({ route, navigation }) => {
 
   const [tabSelected, settabSelected] = useState("Circular");
   const isFocused = useIsFocused();
-  if (isFocused) {
-    BOTTOM_NAV_STORE.setTabVisibility(false);
-  }
+
+  useEffect(() => {
+    if (isFocused) {
+      BOTTOM_NAV_STORE.setTabVisibility(false);
+    }
+  }, [isFocused]);
+
 
   const [offset, setOffset] = useState(0);
   const { width } = Dimensions.get("screen");
@@ -151,7 +156,7 @@ const ClubDescriptionScreen = observer(({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {CLUB_DESCRIPTION_STORE.getError ? (
         <ErrorScreen
           showIconInButton={false}
@@ -307,7 +312,7 @@ const ClubDescriptionScreen = observer(({ route, navigation }) => {
           </ScrollView>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 });
 

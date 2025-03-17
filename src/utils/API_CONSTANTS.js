@@ -66,7 +66,9 @@ export const API_IS_FOLLOWING = '/api/student/is-following/';
 
 export const API_FOLLOW_TOGGLE = '/api/student/follow/';
 
-export const NO_IMAGE_URL = 'https://d1bn8n4samjo70.cloudfront.net/noimage.jpg';
+// export const NO_IMAGE_URL = 'https://d1bn8n4samjo70.cloudfront.net/noimage.jpg';
+
+export const NO_IMAGE_URL = 'https://photosbull.com/wp-content/uploads/2024/05/no-dp_16.webp';
 
 export const API_UPCOMING_EVENTS = 'api/student/upcoming-events';
 

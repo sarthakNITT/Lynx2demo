@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'react-native';
-// import {Button} from 'react-native-paper';
+// import { Button } from 'react-native';
+import {Button} from 'react-native-paper';
 import {ScaledSheet} from 'react-native-size-matters';
 import * as colors from '../../utils/colors';
 
@@ -8,7 +8,7 @@ const BackButton = ({handler}) => {
   return (
     <Button
       style={styles.back}
-      mode="outline"
+      mode="outlined"
       onPress={handler}
       labelStyle={{color: colors.regAttach}}
       icon="chevron-left">

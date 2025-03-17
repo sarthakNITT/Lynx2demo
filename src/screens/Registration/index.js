@@ -17,7 +17,7 @@ import LoginWebmailScreen from './LoginWebmail';
 import Name from './Name';
 import OTPScreen from './OTP';
 import ProfilePic from './ProfilePic';
- import ResetPassword from './ResetPassword';
+import ResetPassword from './ResetPassword';
 import {studentRegisterAPI} from './studentRegisterAPI';
 import PagerView from 'react-native-pager-view';
 import { reg_token } from '../../utils/API_CONSTANTS';

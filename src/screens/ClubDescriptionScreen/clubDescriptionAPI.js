@@ -1,4 +1,4 @@
-// import NetInfo from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import axios from "axios";
 import { API_STORE } from "../../mobx/API_STORE";
 import { CLUB_DESCRIPTION_STORE } from "../../mobx/CLUB_DESCRIPTION_STORE";
@@ -108,25 +108,25 @@ export const clubDescriptionAPI = (refreshing) => {
   CLUB_DESCRIPTION_STORE.setError(false);
 
   //using netinfo to check if online
-  // NetInfo.fetch().then((state) => {
-  //   if (state.isConnected === true) {
-  //     if (!refreshing) {
-  //       CLUB_DESCRIPTION_STORE.setLoading(true);
-  //     }
+  NetInfo.fetch().then((state) => {
+    if (state.isConnected === true) {
+      if (!refreshing) {
+        CLUB_DESCRIPTION_STORE.setLoading(true);
+      }
 
-  //     API_CALL(refreshing);
-  //     if (refreshing) {
-  //       CLUB_DESCRIPTION_STORE.setLoading(false);
-  //       CLUB_DESCRIPTION_STORE.setRefreshing(false);
-  //     }
-  //   } else {
-  //     CLUB_DESCRIPTION_STORE.setSuccess(false);
-  //     CLUB_DESCRIPTION_STORE.setLoading(false);
-  //     CLUB_DESCRIPTION_STORE.setErrorText(NO_NETWORK);
-  //     CLUB_DESCRIPTION_STORE.setError(true);
-  //     if (refreshing) {
-  //       CLUB_DESCRIPTION_STORE.setRefreshing(false);
-  //     }
-  //   }
-  // });
+      API_CALL(refreshing);
+      if (refreshing) {
+        CLUB_DESCRIPTION_STORE.setLoading(false);
+        CLUB_DESCRIPTION_STORE.setRefreshing(false);
+      }
+    } else {
+      CLUB_DESCRIPTION_STORE.setSuccess(false);
+      CLUB_DESCRIPTION_STORE.setLoading(false);
+      CLUB_DESCRIPTION_STORE.setErrorText(NO_NETWORK);
+      CLUB_DESCRIPTION_STORE.setError(true);
+      if (refreshing) {
+        CLUB_DESCRIPTION_STORE.setRefreshing(false);
+      }
+    }
+  });
 };

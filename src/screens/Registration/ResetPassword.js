@@ -17,6 +17,7 @@ import {PASSWORD_NO_MATCH, PASSWORD_SHORT} from '../../utils/ERROR_MESSAGES';
 import {PASSWORD_LENGTH} from '../../utils/UI_CONSTANTS';
 import BackButton from './backButton';
 import NextButton from './nextButton';
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -89,13 +90,13 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
               style={{...styles.input, marginTop: verticalScale(5)}}
               right={
                 <TextInput.Icon
-                  name={() => (
-                    <Icon
-                      name={eyeIcon}
-                      size={24}
-                      color="#000000" // Set the color explicitly here
-                    />
-                  )}
+                  // name={() => (
+                  //   <Icon
+                  //     name={eyeIcon}
+                  //     size={24}
+                  //     color="#000000" // Set the color explicitly here
+                  //   />
+                  // )}
                   onPress={() => {
                     setPasswordToggle(!passwordToggle);
                     setEyeIcon(eyeIcon === 'eye' ? 'eye-off' : 'eye');
@@ -146,15 +147,15 @@ const ResetPassword = ({handleAPICALL, backwardAction}) => {
             selectionColor={colors.TEXT_INPUT_SELECTION_COLOR}
             outlineColor={passEr ? colors.Tertiary : null}
             style={{...styles.input, marginTop: verticalScale(5)}}
-            right={
-              <TextInput.Icon
-                name={eyeIcon}
-                onPress={() => {
-                  setPasswordToggle(!passwordToggle);
-                  setEyeIcon(eyeIcon === 'eye' ? 'eye-off' : 'eye');
-                }}
-              />
-            }
+            // right={
+            //   <TextInput.Icon
+            //     name={eyeIcon}
+            //     onPress={() => {
+            //       setPasswordToggle(!passwordToggle);
+            //       setEyeIcon(eyeIcon === 'eye' ? 'eye-off' : 'eye');
+            //     }}
+            //   />
+            // }
             onChangeText={password =>
               STUDENT_REGISTRATION_STORE.setPassword(password)
             }
